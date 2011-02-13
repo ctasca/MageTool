@@ -142,4 +142,18 @@ class MageTool_Tool_MageApp_Provider_Core_Config extends MageTool_Tool_MageApp_P
             }
         }
     }
+    
+    /**
+     * Validate the Magento xml config using lint tests
+     *
+     * @return void
+     * @author Alistair Stead
+     **/
+    public function lint($path = null, $lints = 'All')
+    {
+        $this->_bootstrap();
+        
+        $lint = new MageTool_Tool_MageApp_Provider_Core_Config_Lint();
+        $lint->run();
+    }
 }
