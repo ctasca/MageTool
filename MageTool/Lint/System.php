@@ -1,7 +1,7 @@
 <?php
 
-class MageTool_Tool_MageApp_Provider_Core_Config_Lint_Xml
-    extends MageTool_Tool_MageApp_Provider_Core_Config_Lint_Abstract
+class MageTool_Lint_System
+    extends MageTool_Lint_Abstract
 {
     /**
      * Validate the XML config is correctly structured
@@ -11,6 +11,6 @@ class MageTool_Tool_MageApp_Provider_Core_Config_Lint_Xml
      **/
     public function validate($config)
     {
-        new SimpleXMLElement($config);
+
     }
 }

@@ -5,6 +5,7 @@
  */
 require_once 'MageTool/Tool/MageApp/Provider/Abstract.php';
 require_once 'Zend/Tool/Framework/Provider/Pretendable.php';
+require_once 'MageTool/Lint.php';
 
 /**
  * MageTool_Tool_MageApp_Provider_Core_Config provides commands to read and update the Magento
@@ -153,7 +154,7 @@ class MageTool_Tool_MageApp_Provider_Core_Config extends MageTool_Tool_MageApp_P
     {
         $this->_bootstrap();
         
-        $lint = new MageTool_Tool_MageApp_Provider_Core_Config_Lint();
+        $lint = new MageTool_Lint();
         $lint->run();
     }
 }

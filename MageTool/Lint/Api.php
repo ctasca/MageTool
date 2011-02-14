@@ -1,7 +1,7 @@
 <?php
 
-class MageTool_Tool_MageApp_Provider_Core_Config_Lint_System
-    extends MageTool_Tool_MageApp_Provider_Core_Config_Lint_Abstract
+class MageTool_Lint_Api
+    extends MageTool_Lint_Abstract
 {
     /**
      * Validate the XML config is correctly structured
