@@ -9,6 +9,13 @@ class MageTool_Lint
     protected $_lints;
     
     /**
+     * Internal array to which lint messages will be stored
+     *
+     * @var array
+     **/
+    protected $_messages;
+    
+    /**
      * XML Config object
      *
      * @var string
@@ -24,6 +31,7 @@ class MageTool_Lint
     public function __construct()
     {
         $this->_lints = array();
+        $this->_messages = array();
     }
     
     /**
@@ -34,18 +42,41 @@ class MageTool_Lint
      **/
     public function run($response)
     {
-        foreach ($this->getLints() as $lintClass => $includePath) {
+        foreach ($this->getLints() as $lint) {
             try {
-                include_once $includePath;
-                $lint = new $lintClass;
-                $lint->run($this->_getBaseConfig());
+                $lint->run($this->getXmlConfigPaths());
             } catch (MageTool_Lint_Exception $e) {
                 $response->appendContent(
                     "{$e->getMessage()}",
-                    array('color' => array('yellow'))
+                    array('color' => array('red'))
                 );
             }     
         }
+        $this->_processMessages($response);
+    }
+    
+    /**
+     * undocumented function
+     *
+     * @return void
+     * @author Alistair Stead
+     **/
+    protected function _processMessages($response)
+    {
+        foreach ($this->_messages as $message) {
+            $message->write($response);
+        }
+    }
+    
+    /**
+     * Add Messages from the lint running
+     *
+     * @return void
+     * @author Alistair Stead
+     **/
+    public function addMessage(MageTool_Lint_Message $message)
+    {
+        $this->_messages[] = $message;
     }
     
     /**
@@ -59,6 +90,7 @@ class MageTool_Lint
         if (is_null($this->_config)) {
             $this->_config = Mage::getModel('core/config');
         }
+        
         return $this->_config->loadBase();
     }
     
@@ -68,8 +100,14 @@ class MageTool_Lint
      * @return void
      * @author Alistair Stead
      **/
-    public function setLints(array $lints)
+    public function addLints(array $lints)
     {
+        foreach ($lints as $lint) {
+            $lint->setLint($this);
+        }
+        $this->_lints = array_merge($this->_lints, $lints);
+        
+        return $this;
     }
     
     /**
@@ -80,6 +118,22 @@ class MageTool_Lint
      **/
     public function addLint(MageTool_Lint_Interface $lint)
     {
+        $this->_lints[] = $lint->setLint($this);
+        
+        return $this;
+    }
+    
+    /**
+     * undocumented function
+     *
+     * @return MageTool_Lint
+     * @author Alistair Stead
+     **/
+    public function clearLints()
+    {
+        $this->_lints = array();
+        
+        return $this;
     }
     
     /**
@@ -88,17 +142,32 @@ class MageTool_Lint
      * @return array
      * @author Alistair Stead
      **/
-    public function getLints($path = null)
+    public function getLints()
+    {        
+        return $this->_lints;
+    }
+    
+    /**
+     * undocumented function
+     *
+     * @return array
+     * @author Alistair Stead
+     **/
+    public function getXmlConfigPaths()
     {
-        // TODO search local file path and the supplied path for files that implement lint
-        $lints = array(
-          'MageTool_Lint_Xml' => 'MageTool/Lint/Xml.php',
-          'MageTool_Lint_Config' => 'MageTool/Lint/Config.php',
-          'MageTool_Lint_System' => 'MageTool/Lint/System.php',
-          'MageTool_Lint_Adminhtml' => 'MageTool/Lint/Adminhtml.php',
-          'MageTool_Lint_Api' => 'MageTool/Lint/Api.php'  
-        );
+        $filePaths = array();
+        $config = $this->_getBaseConfig();
+        $modules = $config->loadModules()->getNode('modules')->children();
+        foreach ($modules as $modName => $module) {
+            if ($module->is('active')) {
+                // Find all configuration within the module
+                $configFiles = glob($config->getModuleDir('etc', $modName).DS.'*.xml');
+                while ($filePath = next($configFiles)) {
+                    $filePaths[] = $filePath;
+                }
+            }
+        }
         
-        return $lints;
+        return $filePaths;
     }
 }

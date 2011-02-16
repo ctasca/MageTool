@@ -41,10 +41,24 @@ class LintTest extends PHPUnit_Framework_TestCase
      */
     public function getLintsShouldReturnArrayClassAndPath()
     {
-        $lints = $this->_lint->getLints();
+        $lints = array(
+          'MageTool_Lint_Xml' => 'MageTool/Lint/Xml.php',
+          'MageTool_Lint_Config' => 'MageTool/Lint/Config.php',
+          'MageTool_Lint_System' => 'MageTool/Lint/System.php',
+          'MageTool_Lint_Adminhtml' => 'MageTool/Lint/Adminhtml.php',
+          'MageTool_Lint_Api' => 'MageTool/Lint/Api.php'  
+        );
+        $lintObjects = array();
+        foreach ($lints as $lintClass => $includePath) {
+            include_once $includePath;
+            $lintTest = new $lintClass;
+            $lintObjects[] = $lintTest;   
+        }
+        $this->_lint->addLints($lintObjects);
+        $result = $this->_lint->getLints();
         
-        $this->assertTrue(is_array($lints), 'No lints array has been returned');
-        $this->assertEquals(5, count($lints), 'An unexpected number of lints has been found');
+        $this->assertTrue(is_array($result), 'No lints array has been returned');
+        $this->assertEquals(5, count($result), 'An unexpected number of lints has been found');
         
         foreach ($lints as $class => $path) {
             $this->assertFileExists($path, 'Path not found on the include path');

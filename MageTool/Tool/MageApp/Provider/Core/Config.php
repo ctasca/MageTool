@@ -153,8 +153,30 @@ class MageTool_Tool_MageApp_Provider_Core_Config extends MageTool_Tool_MageApp_P
     public function lint($path = null, $lints = 'All')
     {
         $this->_bootstrap();
+        // TODO search local file path and the supplied path for files that implement lint
+        $lints = array(
+          'MageTool_Lint_Xml' => 'MageTool/Lint/Xml.php',
+          'MageTool_Lint_Config' => 'MageTool/Lint/Config.php',
+          'MageTool_Lint_System' => 'MageTool/Lint/System.php',
+          'MageTool_Lint_Adminhtml' => 'MageTool/Lint/Adminhtml.php',
+          'MageTool_Lint_Api' => 'MageTool/Lint/Api.php'  
+        );
+        $lintObjects = array();
+        foreach ($lints as $lintClass => $includePath) {
+            try {
+                include_once $includePath;
+                $lintTest = new $lintClass;
+                $lintObjects[] = $lintTest;
+            } catch (MageTool_Lint_Exception $e) {
+                $this->_response->appendContent(
+                    "{$e->getMessage()}",
+                    array('color' => array('red'))
+                );
+            }     
+        }
         
         $lint = new MageTool_Lint();
-        $lint->run();
+        $lint->addLints($lintObjects);
+        $lint->run($this->_response);
     }
 }

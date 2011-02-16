@@ -1,31 +1,32 @@
 <?php
-
+ 
 class MageTool_Lint_Xml
     extends MageTool_Lint_Abstract
 {
     /**
      * Validate the XML config is correctly structured
      *
+     * @param string $xml The file contents from the configuration file
      * @return void
      * @author Alistair Stead
      **/
-    public function validate($config)
+    public function validate($xml)
     { 
-        try {
-            // Retrieve an array of modules
-            $modules = $config->loadModules()->getNode('modules')->children();
-            foreach ($modules as $modName => $module) {
-                if ($module->is('active')) {
-                    // Find all configuration within the module
-                    $configFiles = glob($config->getModuleDir('etc', $modName).DS.'*.xml');
-                    while ($filePath = next($configFiles)) {
-                        $configString = file_get_contents($filePath);
-                        new SimpleXMLElement($configString);
-                    }
-                }
-            }
+        try {            
+            new SimpleXMLElement($xml);
         } catch (Exception $e) {
-            throw new MageTool_Lint_Exception($e->getMessage());
+            $this->getLint()->addMessage(
+                new MageTool_Lint_Message(
+                    $e->getMessage(),
+                    'red'
+                )
+            );
         }
+        $this->getLint()->addMessage(
+            new MageTool_Lint_Message(
+                'Configuration file is valid XML',
+                'green'
+            )
+        );
     }
 }
