@@ -23,6 +23,13 @@ class MageTool_Lint
     protected $_config;
     
     /**
+     * File path pattern to filter the config to be tested
+     *
+     * @var string
+     **/
+    protected $_pathFilter;
+    
+    /**
      * Public constructor
      *
      * @return void
@@ -53,6 +60,17 @@ class MageTool_Lint
             }     
         }
         $this->_processMessages($response);
+    }
+    
+    /**
+     * Set a _pathFilter that can be used to reduce the number of files that will be tested
+     *
+     * @return void
+     * @author Alistair Stead
+     **/
+    public function setPathFilter($path)
+    {
+        $this->_pathFilter = $path;
     }
     
     /**
@@ -100,12 +118,34 @@ class MageTool_Lint
      * @return void
      * @author Alistair Stead
      **/
-    public function addLints(array $lints)
+    public function addLints($lints)
     {
-        foreach ($lints as $lint) {
-            $lint->setLint($this);
+        if (is_array($lints)) {
+            foreach ($lints as $lint) {
+                $this->addLint($lint);
+            }
         }
-        $this->_lints = array_merge($this->_lints, $lints);
+        if (is_object($lints) && ($lints instanceof MageTool_Lint_Interface)) {
+            $this->addLint($lints);
+        }
+        if (is_string($lints) && file_exists($lints)) {
+            $phpContent = file_get_contents($lints);
+            $fileTokens = token_get_all($phpContent);
+            $classToken = false;
+            foreach ($fileTokens as $token) {
+                if (is_array($token)) {
+                    var_dump($token);
+                    if ($token[0] == T_CLASS) {
+                        $classToken = true;
+                    } else if ($classToken && $token[0] == T_STRING) {
+                        include_once $lints;
+                        $this->addLint(new $token[1]);
+                        $class_token = false;
+                    }
+                }       
+            }
+            
+        }   
         
         return $this;
     }
@@ -118,7 +158,7 @@ class MageTool_Lint
      **/
     public function addLint(MageTool_Lint_Interface $lint)
     {
-        $this->_lints[] = $lint->setLint($this);
+        $this->_lints[get_class($lint)] = $lint->setLint($this);
         
         return $this;
     }
@@ -163,7 +203,12 @@ class MageTool_Lint
                 // Find all configuration within the module
                 $configFiles = glob($config->getModuleDir('etc', $modName).DS.'*.xml');
                 while ($filePath = next($configFiles)) {
-                    $filePaths[] = $filePath;
+                    // If the $_pathFilter is set and it is matched in the $filePath
+                    if (is_null($this->_pathFilter)) {
+                        $filePaths[] = $filePath;
+                    } else if (strstr($filePath, $this->_pathFilter)) {
+                        $filePaths[] = $filePath;
+                    }
                 }
             }
         }
