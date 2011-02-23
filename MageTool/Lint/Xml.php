@@ -13,20 +13,31 @@ class MageTool_Lint_Xml
     public function validate($xml)
     { 
         try {            
-            new SimpleXMLElement($xml);
+            $this->_config = new SimpleXMLElement($xml);
         } catch (Exception $e) {
             $this->getLint()->addMessage(
                 new MageTool_Lint_Message(
-                    $e->getMessage(),
-                    'red'
+                    MageTool_Lint_Message::ERROR,
+                    $e->getMessage() . ' ' . $this->_filePath
                 )
             );
         }
-        $this->getLint()->addMessage(
-            new MageTool_Lint_Message(
-                'Configuration file is valid XML',
-                'green'
-            )
-        );
+    }
+    
+    /**
+     * Can this lint class validate this file
+     * 
+     * Can validate all files with the exception of WSDL files
+     *
+     * @param string $filePath The path from which the file can be loaded.
+     * @return bool
+     * @author Alistair Stead
+     **/
+    public function canValidate($filePath)
+    {
+        if (!strstr($filePath, 'wsdl.xml') && !strstr($filePath, 'wsdl2.xml')) {
+            return true;
+        }
+        return false;
     }
 }

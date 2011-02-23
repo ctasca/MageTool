@@ -2,15 +2,15 @@
 
 class MageTool_Lint_System
     extends MageTool_Lint_Abstract
-{
+{    
     /**
      * undocumented class variable
      *
      * @var string
      **/
-    protected $_levelOneNode = array(
+    protected $_expectedRootNodes = array(
         'tabs',
-        'sections'
+        'sections',
     );
     
     /**
@@ -26,6 +26,8 @@ class MageTool_Lint_System
     
     /**
      * Can this lint class validate this file
+     * 
+     * Can validate system.xml
      *
      * @param string $filePath The path from which the file can be loaded.
      * @return bool

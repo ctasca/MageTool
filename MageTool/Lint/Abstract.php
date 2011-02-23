@@ -2,7 +2,28 @@
 
 abstract class MageTool_Lint_Abstract
     implements MageTool_Lint_Interface
-{
+{    
+    /**
+     * Internal reference of the current module being tested
+     *
+     * @var string
+     **/
+    protected $_moduleName;
+    
+    /**
+     * Internal reference to the SimpleXMLElement
+     *
+     * @var SimpleXMLElement
+     **/
+    protected $_config;
+    
+    /**
+     * Internal reference to the current file being tested
+     *
+     * @var string
+     **/
+    protected $_filePath;
+    
     /**
      * Internal reference to the parent Lint object
      *
@@ -14,18 +35,36 @@ abstract class MageTool_Lint_Abstract
     {
         if (is_array($filePaths)) {
             foreach ($filePaths as $filePath) {
-                if (!$this->canValidate($filePath)) {
-                    continue;
-                }
-                $xml = file_get_contents($filePath);
-                $this->validate($xml);
+                $this->_run($filePath);
             }
         } else {
-            if ($this->canValidate($filePath)) {
-                $xml = file_get_contents($filePaths);
-                $this->validate($xml);
-            }
+            $this->_run($filePaths);
         }
+    }
+    
+    /**
+     * undocumented function
+     *
+     * @return void
+     * @author Alistair Stead
+     **/
+    protected function _run($filePath)
+    {
+        $this->_filePath = $filePath;
+        if (!file_exists($this->_filePath) || !is_readable($this->_filePath)) {
+            $this->getLint()->addMessage(
+                new MageTool_Lint_Message(
+                    "Unable to load::{$this->_filePath}",
+                    'red'
+                )
+            );
+            return;
+        }
+        if (!$this->canValidate($filePath)) {
+            return;
+        }
+        $xml = file_get_contents($filePath);
+        $this->validate($xml);
     }
     
     /**
