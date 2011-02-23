@@ -150,7 +150,7 @@ class MageTool_Tool_MageApp_Provider_Core_Config extends MageTool_Tool_MageApp_P
      * @return void
      * @author Alistair Stead
      **/
-    public function lint($path = null, $lints = 'All')
+    public function lint($configFilePath = 'app/code/local', $lintFilePath = null)
     {
         $this->_bootstrap();
         // TODO search local file path and the supplied path for files that implement lint
@@ -176,7 +176,13 @@ class MageTool_Tool_MageApp_Provider_Core_Config extends MageTool_Tool_MageApp_P
         }
         
         $lint = new MageTool_Lint();
-        $lint->addLints($lintObjects);
+        $lint->setPathFilter($configFilePath);
+        // If an additional lint file path is supplied pass it to be loaded
+        if (!is_null($lintFilePath)) {
+            $lint->addLints($lintFilePath);
+        } else {
+            $lint->addLints($lintObjects);
+        }
         $lint->run($this->_response);
     }
 }
