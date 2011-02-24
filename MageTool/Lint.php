@@ -30,13 +30,21 @@ class MageTool_Lint
     protected $_pathFilter;
     
     /**
+     * Specific file path to be tested
+     *
+     * @var string
+     **/
+    protected $_filePath;
+    
+    /**
      * Public constructor
      *
      * @return void
      * @author Alistair Stead
      **/
-    public function __construct()
+    public function __construct($filePath = null)
     {
+        $this->_filePath = $filePath;
         $this->_lints = array();
         $this->_messages = array();
     }
@@ -63,7 +71,8 @@ class MageTool_Lint
     }
     
     /**
-     * Set a _pathFilter that can be used to reduce the number of files that will be tested
+     * Set a _pathFilter that can be used to reduce the number of files that will be tested. Or
+     * you may set an explicit file to be tested.
      *
      * @return void
      * @author Alistair Stead
@@ -94,7 +103,20 @@ class MageTool_Lint
      **/
     public function addMessage(MageTool_Lint_Message $message)
     {
-        $this->_messages[] = $message;
+        $this->_messages[$message->getLevel()][] = $message;
+    }
+    
+    /**
+     * Return the messages array with the selected message level
+     *
+     * @return array
+     * @author Alistair Stead
+     **/
+    public function getMessages($level = null)
+    {
+        if (is_null($level)) {
+            return $this->_messages;
+        }
     }
     
     /**
@@ -196,6 +218,13 @@ class MageTool_Lint
     public function getXmlConfigPaths()
     {
         $filePaths = array();
+        if ($this->_filePath) {
+            if (!file_exists($this->_filePath)) {
+                throw new MageTool_Lint_Exception("XML file not found: {$this->_filePath}");
+            }
+            $filePaths[] = $this->_filePath;
+            return $filePaths;
+        }
         $config = $this->_getBaseConfig();
         $modules = $config->loadModules()->getNode('modules')->children();
         foreach ($modules as $modName => $module) {
