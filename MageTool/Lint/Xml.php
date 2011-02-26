@@ -23,21 +23,4 @@ class MageTool_Lint_Xml
             );
         }
     }
-    
-    /**
-     * Can this lint class validate this file
-     * 
-     * Can validate all files with the exception of WSDL files
-     *
-     * @param string $filePath The path from which the file can be loaded.
-     * @return bool
-     * @author Alistair Stead
-     **/
-    public function canValidate($filePath)
-    {
-        if (!strstr($filePath, 'wsdl.xml') && !strstr($filePath, 'wsdl2.xml')) {
-            return true;
-        }
-        return false;
-    }
 }

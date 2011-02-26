@@ -31,50 +31,28 @@ abstract class MageTool_Lint_Abstract
      **/
     protected $_lint;
     
-    public function run($filePaths)
-    {
-        if (is_array($filePaths)) {
-            foreach ($filePaths as $filePath) {
-                $this->_run($filePath);
-            }
-        } else {
-            $this->_run($filePaths);
-        }
-    }
-    
     /**
-     * undocumented function
+     * Run the lint tests against the supplied string
      *
+     * @param string $xml Configuration file string
      * @return void
      * @author Alistair Stead
-     **/
-    protected function _run($filePath)
+     */
+    public function run($xml)
     {
-        $this->_filePath = $filePath;
-        if (!file_exists($this->_filePath) || !is_readable($this->_filePath)) {
-            $this->getLint()->addMessage(
-                new MageTool_Lint_Message(
-                    "Unable to load::{$this->_filePath}",
-                    'red'
-                )
-            );
+        if (!$this->canValidate()) {
             return;
         }
-        if (!$this->canValidate($filePath)) {
-            return;
-        }
-        $xml = file_get_contents($filePath);
         $this->validate($xml);
     }
     
     /**
      * Can this lint class validate this file
      *
-     * @param string $filePath The path from which the file can be loaded.
      * @return bool
      * @author Alistair Stead
      **/
-    public function canValidate($filePath)
+    public function canValidate()
     {
         return true;
     }

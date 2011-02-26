@@ -64,7 +64,7 @@ class MageTool_Lint_Message
      **/
     public function getLevel()
     {
-        return $this->_message;
+        return $this->_level;
     }
     
     /**
@@ -76,19 +76,5 @@ class MageTool_Lint_Message
     public function getMessage()
     {
         return $this->_message;
-    }
-    
-    /**
-     * Write the message output to the response object
-     *
-     * @return void
-     * @author Alistair Stead
-     **/
-    public function write($response)
-    {
-        $response->appendContent(
-            $this->getLevel() . ': ' . $this->getMessage(),
-            array('color' => array($this->_colours[$this->getLevel()]))
-        );
     }
 }

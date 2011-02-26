@@ -21,11 +21,11 @@ class MageTool_Lint_Adminhtml
      * @return bool
      * @author Alistair Stead
      **/
-    public function canValidate($filePath)
+    public function canValidate()
     {
-        if (!strstr($filePath, 'adminhtml.xml')) {
-            return false;
-        }
+        // if (!strstr($filePath, 'adminhtml.xml')) {
+        //     return false;
+        // }
         return true;
     }
 }

@@ -91,19 +91,21 @@ class MageTool_Lint
     protected function _processMessages($response)
     {
         foreach ($this->_messages as $message) {
-            $message->write($response);
+            // $message->write($response);
         }
     }
     
     /**
-     * Add Messages from the lint running
+     * Add Messages from the lint run
      *
-     * @return void
+     * @return MageTool_Lint
      * @author Alistair Stead
      **/
     public function addMessage(MageTool_Lint_Message $message)
     {
         $this->_messages[$message->getLevel()][] = $message;
+        
+        return $this;
     }
     
     /**

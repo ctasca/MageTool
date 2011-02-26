@@ -66,6 +66,19 @@ class LintTest extends PHPUnit_Framework_TestCase
     } // getLintsShouldReturnArrayClassAndPath
     
     /**
+     * getXmlConfigPathsShouldReturnSingleItemWhenFilePathIsSet
+     * @author Alistair Stead
+     * @test
+     */
+    public function getXmlConfigPathsShouldReturnSingleItemWhenFilePathIsSet()
+    {
+        $testFilePath = dirname(__FILE__) . DS . 'Lint' . DS . 'valid' . DS . 'config.xml';
+        $lint = new MageTool_Lint($testFilePath);
+        $this->assertTrue( is_array($lint->getXmlConfigPaths()), 'Array not returned' );
+        $this->assertEquals(1, count($lint->getXmlConfigPaths()), 'Number of array items is not what was expected');
+    } // getXmlConfigPathsShouldReturnSingleItemWhenFilePathIsSet
+    
+    /**
      * runShouldCallEachLintClassRunMethod
      * @author Alistair Stead
      * @test
@@ -74,7 +87,6 @@ class LintTest extends PHPUnit_Framework_TestCase
     {
         // Create a stub for the SomeClass class.
         $stub = $this->getMock('Zend_Tool_Framework_Response');
-
         // Configure the stub.
         $stub->expects($this->any())
              ->method('appendContent')
@@ -82,7 +94,6 @@ class LintTest extends PHPUnit_Framework_TestCase
              
         $this->_lint->run($stub);
     } // runShouldCallEachLintClassRunMethod
-    
     
     /**
      * Provide access to protected methods by using reflection

@@ -51,8 +51,9 @@ class MageTool_Lint_Config
         try {
             $this->_config = new SimpleXMLElement($xml);
             $this->_requiredNodes();
-            $this->_expectedNodes();
-
+            // $this->_expectedNodes();
+            $this->_unexpectedNodes();
+            
         } catch (Exception $e) {
             $this->getLint()->addMessage(
                 new MageTool_Lint_Message(
@@ -68,15 +69,11 @@ class MageTool_Lint_Config
      * 
      * Can only validate config.xml
      *
-     * @param string $filePath The path from which the file can be loaded.
      * @return bool
      * @author Alistair Stead
      **/
-    public function canValidate($filePath)
+    public function canValidate()
     {
-        if (!strstr($filePath, 'config.xml')) {
-            return false;
-        }
         return true;
     }
 
@@ -102,7 +99,7 @@ class MageTool_Lint_Config
                 $this->getLint()->addMessage(
                     new MageTool_Lint_Message(
                         MageTool_Lint_Message::ERROR,
-                        "Required node [{$requiredNode}] in file::{$this->_filePath}"
+                        "Required node [{$requiredNode}] missing in file::{$this->_filePath}"
                     )
                 );
             }
@@ -117,7 +114,7 @@ class MageTool_Lint_Config
      **/
     protected function _expectedNodes()
     {
-        $nodes     = array();
+        $nodes = array();
         foreach($this->_config as $node)
         {
             $nodes[] = $node->getName();
@@ -131,7 +128,33 @@ class MageTool_Lint_Config
                 $this->getLint()->addMessage(
                     new MageTool_Lint_Message(
                         MageTool_Lint_Message::ADVICE,
-                        "Optional node [{$expectedNode}] in file::{$this->_filePath}"
+                        "Optional node [{$expectedNode}] missing in file::{$this->_filePath}"
+                    )
+                );
+            }
+        }
+    }
+    
+    /**
+     * Validate that there are no unexpected root nodes
+     *
+     * @return void
+     * @author Alistair Stead
+     **/
+    protected function _unexpectedNodes()
+    {
+        $nodes = array();
+        foreach($this->_config as $node)
+        {
+            $nodes[] = $node->getName();
+        }
+        $allNodes = array_merge($this->_expectedNodes, $this->_requiredNodes);
+        foreach ($nodes as $node) {
+            if (!in_array($node, $allNodes)) {
+                $this->getLint()->addMessage(
+                    new MageTool_Lint_Message(
+                        MageTool_Lint_Message::WARNING,
+                        "Unexpected node [{$node}] in file::{$this->_filePath}"
                     )
                 );
             }

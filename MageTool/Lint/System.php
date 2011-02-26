@@ -23,21 +23,4 @@ class MageTool_Lint_System
     {
         
     }
-    
-    /**
-     * Can this lint class validate this file
-     * 
-     * Can validate system.xml
-     *
-     * @param string $filePath The path from which the file can be loaded.
-     * @return bool
-     * @author Alistair Stead
-     **/
-    public function canValidate($filePath)
-    {
-        if (!strstr($filePath, 'system.xml')) {
-            return false;
-        }
-        return true;
-    }
 }
