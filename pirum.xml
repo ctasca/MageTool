@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<server>
+  <name>pear.magetool.co.uk</name>
+  <summary>MageTool PEAR channel</summary>
+  <alias>magetool</alias>
+  <url>http://pear.magetool.co.uk/</url>
+</server>

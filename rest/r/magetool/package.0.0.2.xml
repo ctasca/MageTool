@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.9.0" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0     http://pear.php.net/dtd/tasks-1.0.xsd     http://pear.php.net/dtd/package-2.0     http://pear.php.net/dtd/package-2.0.xsd">
+ <name>MageTool</name>
+ <channel>pear.magetool.co.uk</channel>
+ <summary>Additional ZF tools specifically for use during Magento development.</summary>
+ <description>Additional ZF tools specifically for use during Magento development. Adding commands that will be useful during development with Magento. Command include: Clear cache, enable / disable cache and create admin user.</description>
+ <lead>
+  <name>Alistair Stead</name>
+  <user>alistair.stead</user>
+  <email>alistair.stead@designdisclosure.com</email>
+  <active>yes</active>
+ </lead>
+ <date>2010-10-09</date>
+ <time>23:32:23</time>
+ <version>
+  <release>0.0.2</release>
+  <api>0.0.2</api>
+ </version>
+ <stability>
+  <release>beta</release>
+  <api>beta</api>
+ </stability>
+ <license uri="http://www.opensource.org/licenses/mit-license.php">MIT</license>
+ <notes>
+-
+ </notes>
+ <contents>
+  <dir name="/">
+   <file baseinstalldir="/" md5sum="a19a14e22f68fd21976ccaeabee4ae01" name="MageTool/Tool/MageApp/Provider/Admin/User.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="/" md5sum="50c570060253c3c8582c63008eddec0e" name="MageTool/Tool/MageApp/Provider/Core/Cache.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="/" md5sum="6006ff5a62f50a6a2d863bed3f0d9eb9" name="MageTool/Tool/MageApp/Provider/Core/Config.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="/" md5sum="0635cd2fb9b0cea561265023ca8a1c21" name="MageTool/Tool/MageApp/Provider/Core/Resource.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="/" md5sum="b3826ce9d408ed48e9649ad74b63b89a" name="MageTool/Tool/MageApp/Provider/Abstract.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="/" md5sum="10e99e154a726aa44278980d815baf8a" name="MageTool/Tool/MageApp/Provider/App.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="/" md5sum="f5a2e62ff0818806bba33b31a2f07c85" name="MageTool/Tool/MageApp/Provider/Exception.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="/" md5sum="439e47ccbebf9b71a04044f7b0281d86" name="MageTool/Tool/MageApp/Provider/Manifest.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="/" md5sum="c0be88a6418196ae42b76baebf709d0b" name="MageTool/Tool/MageApp/Exception.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="/" md5sum="2ec1908aadc0355afe2bdbcea28ac51d" name="MageTool/Tool/MageExtension/Provider/Abstract.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="/" md5sum="cdcaf8172308ad3ec439e4b521d9fe7b" name="MageTool/Tool/MageExtension/Provider/Extension.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="/" md5sum="fc025f65da0d170e1b849f391839bab3" name="MageTool/Tool/MageExtension/Provider/Manifest.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="/" md5sum="cd0319d016d8c11181c535dbc0a09bdc" name="MageTool/Tool/MageExtension/Exception.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file md5sum="37a3506cdc422d9114f3535f89022d24" name="LICENSE" role="doc" />
+   <file md5sum="092b18b9f8d1d84cfc52854840b6129f" name="README.markdown" role="doc" />
+  </dir>
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.2.6</min>
+   </php>
+   <pearinstaller>
+    <min>1.4.0</min>
+   </pearinstaller>
+   <package>
+    <name>zf</name>
+    <channel>pear.zfcampus.org</channel>
+    <min>1.10.8</min>
+   </package>
+  </required>
+ </dependencies>
+ <phprelease />
+</package>

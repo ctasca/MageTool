@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<f xmlns="http://pear.php.net/dtd/rest.categorypackageinfo" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink" xsi:schemaLocation="http://pear.php.net/dtd/rest.categorypackageinfo     http://pear.php.net/dtd/rest.categorypackageinfo.xsd">
+    <pi>
+        <p>
+            <n>MageTool</n>
+            <c>pear.magetool.co.uk</c>
+            <ca xlink:href="/rest/c/Default">Default</ca>
+            <l>OSL 3.0</l>
+            <s>Additional ZF tools specifically for use during Magento development.</s>
+            <d>Additional ZF tools specifically for use during Magento development. Adding commands that will be useful during development with Magento. Command include: Clear cache, enable / disable cache and create admin user.</d>
+            <r xlink:href="/rest/r/magetool" />
+        </p>
+
+        <a>
+            <r>
+                <v>0.3.0</v>
+                <s>beta</s>
+            </r>
+            <r>
+                <v>0.2.0</v>
+                <s>beta</s>
+            </r>
+            <r>
+                <v>0.1.1</v>
+                <s>beta</s>
+            </r>
+            <r>
+                <v>0.1.0</v>
+                <s>beta</s>
+            </r>
+            <r>
+                <v>0.0.2</v>
+                <s>beta</s>
+            </r>
+            <r>
+                <v>0.0.1</v>
+                <s>beta</s>
+            </r>
+
+        </a>
+
+        <deps>
+            <v>0.3.0</v>
+            <d>a:1:{s:8:"required";a:3:{s:3:"php";a:1:{s:3:"min";s:5:"5.2.6";}s:13:"pearinstaller";a:1:{s:3:"min";s:5:"1.4.0";}s:7:"package";a:3:{s:4:"name";s:2:"zf";s:7:"channel";s:17:"pear.zfcampus.org";s:3:"min";s:6:"1.11.0";}}}</d>
+        </deps>
+        <deps>
+            <v>0.2.0</v>
+            <d>a:1:{s:8:"required";a:3:{s:3:"php";a:1:{s:3:"min";s:5:"5.2.6";}s:13:"pearinstaller";a:1:{s:3:"min";s:5:"1.4.0";}s:7:"package";a:3:{s:4:"name";s:2:"zf";s:7:"channel";s:17:"pear.zfcampus.org";s:3:"min";s:6:"1.11.0";}}}</d>
+        </deps>
+        <deps>
+            <v>0.1.1</v>
+            <d>a:1:{s:8:"required";a:3:{s:3:"php";a:1:{s:3:"min";s:5:"5.2.6";}s:13:"pearinstaller";a:1:{s:3:"min";s:5:"1.4.0";}s:7:"package";a:3:{s:4:"name";s:2:"zf";s:7:"channel";s:17:"pear.zfcampus.org";s:3:"min";s:6:"1.11.0";}}}</d>
+        </deps>
+        <deps>
+            <v>0.1.0</v>
+            <d>a:1:{s:8:"required";a:3:{s:3:"php";a:1:{s:3:"min";s:5:"5.2.6";}s:13:"pearinstaller";a:1:{s:3:"min";s:5:"1.4.0";}s:7:"package";a:3:{s:4:"name";s:2:"zf";s:7:"channel";s:17:"pear.zfcampus.org";s:3:"min";s:6:"1.11.0";}}}</d>
+        </deps>
+        <deps>
+            <v>0.0.2</v>
+            <d>a:1:{s:8:"required";a:3:{s:3:"php";a:1:{s:3:"min";s:5:"5.2.6";}s:13:"pearinstaller";a:1:{s:3:"min";s:5:"1.4.0";}s:7:"package";a:3:{s:4:"name";s:2:"zf";s:7:"channel";s:17:"pear.zfcampus.org";s:3:"min";s:6:"1.10.8";}}}</d>
+        </deps>
+        <deps>
+            <v>0.0.1</v>
+            <d>a:1:{s:8:"required";a:2:{s:3:"php";a:1:{s:3:"min";s:5:"5.2.6";}s:13:"pearinstaller";a:1:{s:3:"min";s:5:"1.4.0";}}}</d>
+        </deps>
+
+    </pi>
+</f>

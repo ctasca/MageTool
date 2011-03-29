@@ -1,0 +1,5 @@
+13 MageTool /usr/lib/php/MageTool/bin/magetool.php
+15 MageTool_Tool_Core_Provider_Abstract /usr/lib/php/MageTool/Tool/Core/Provider/Abstract.php
+19 MageTool_Tool_Core_Provider_Cache /usr/lib/php/MageTool/Tool/Core/Provider/Cache.php
+19 MageTool_Tool_Core_Provider_CoreProvider /usr/lib/php/MageTool/Tool/Core/Provider/CoreProvider.php
+13 MageTool_Tool_Core_Provider_Manifest /usr/lib/php/MageTool/Tool/Core/Provider/Manifest.php
