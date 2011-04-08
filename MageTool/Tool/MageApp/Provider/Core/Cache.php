@@ -75,6 +75,8 @@ class MageTool_Tool_MageApp_Provider_Core_Cache extends MageTool_Tool_MageApp_Pr
      **/
     public function flush()
     {
+        $this->_bootstrap();
+        
         $this->_getCache()->flush();
         $this->_response->appendContent(
             'Magento Cache Flushed',
