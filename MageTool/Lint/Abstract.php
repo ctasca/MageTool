@@ -58,6 +58,17 @@ abstract class MageTool_Lint_Abstract
     }
     
     /**
+     * undocumented function
+     *
+     * @return void
+     * @author Alistair Stead
+     **/
+    public function setFilePath($filePath)
+    {
+        $this->_filePath = $filePath;
+    }
+    
+    /**
      * Retrieve the internal Lint object
      *
      * @return MageTool_Lint

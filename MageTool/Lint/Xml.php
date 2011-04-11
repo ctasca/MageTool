@@ -23,4 +23,22 @@ class MageTool_Lint_Xml
             );
         }
     }
+    
+    /**
+     * Can this lint class validate this file
+     * 
+     * Can only validate config.xml
+     *
+     * @return bool
+     * @author Alistair Stead
+     **/
+    public function canValidate()
+    {
+        if (strstr($this->_filePath, 'wsdl.xml') || 
+            strstr($this->_filePath, 'wsi.xml') || 
+            strstr($this->_filePath, 'wsdl2.xml')) {
+            return false;
+        }
+        return true;
+    }
 }

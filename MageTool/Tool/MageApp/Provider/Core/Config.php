@@ -183,6 +183,24 @@ class MageTool_Tool_MageApp_Provider_Core_Config extends MageTool_Tool_MageApp_P
         } else {
             $lint->addLints($lintObjects);
         }
-        $lint->run($this->_response);
+        $lint->run();
+        foreach ($lint->getMessages() as $message) {
+            $this->_response->appendContent(
+                "{$message->getLevel()}: {$message->getMessage()}",
+                array('color' => array($message->getColour()))
+            );    
+        }
+        $count = count($lint->getMessages());
+        if ($count > 0) {
+            $this->_response->appendContent(
+                "({$count}) Messages reported",
+                array('color' => array('red'))
+            );
+        } else {
+            $this->_response->appendContent(
+                "No errors found",
+                array('color' => array('green'))
+            );
+        }
     }
 }

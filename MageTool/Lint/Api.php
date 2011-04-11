@@ -13,4 +13,20 @@ class MageTool_Lint_Api
     {
         
     }
+    
+    /**
+     * Can this lint class validate this file
+     * 
+     * Can only validate config.xml
+     *
+     * @return bool
+     * @author Alistair Stead
+     **/
+    public function canValidate()
+    {
+        if (strstr($this->_filePath, 'api.xml')) {
+            return true;
+        }
+        return false;
+    }
 }

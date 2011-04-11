@@ -55,19 +55,16 @@ class MageTool_Lint
      * @return void
      * @author Alistair Stead
      **/
-    public function run($response)
+    public function run()
     {
         foreach ($this->getLints() as $lint) {
-            try {
-                $lint->run($this->getXmlConfigPaths());
-            } catch (MageTool_Lint_Exception $e) {
-                $response->appendContent(
-                    "{$e->getMessage()}",
-                    array('color' => array('red'))
-                );
-            }     
+            foreach ($this->getXmlConfigPaths() as $filePath) {
+                $xml = file_get_contents($filePath);
+                $lint->setFilePath($filePath);
+                $lint->run($xml);
+            }
+                
         }
-        $this->_processMessages($response);
     }
     
     /**
@@ -83,19 +80,6 @@ class MageTool_Lint
     }
     
     /**
-     * undocumented function
-     *
-     * @return void
-     * @author Alistair Stead
-     **/
-    protected function _processMessages($response)
-    {
-        foreach ($this->_messages as $message) {
-            // $message->write($response);
-        }
-    }
-    
-    /**
      * Add Messages from the lint run
      *
      * @return MageTool_Lint
@@ -103,7 +87,7 @@ class MageTool_Lint
      **/
     public function addMessage(MageTool_Lint_Message $message)
     {
-        $this->_messages[$message->getLevel()][] = $message;
+        $this->_messages[] = $message;
         
         return $this;
     }
@@ -116,9 +100,25 @@ class MageTool_Lint
      **/
     public function getMessages($level = null)
     {
-        if (is_null($level)) {
-            return $this->_messages;
+        return $this->_messages;
+    }
+    
+    /**
+     * undocumented function
+     *
+     * @return int
+     * @author Alistair Stead
+     **/
+    public function countErrors()
+    {
+        $num = 0;
+        foreach ($this->getMessages() as $message) {
+            if ($message->getLevel() === MageTool_Lint_Message::ERROR) {
+                $num++;
+            }
         }
+        
+        return $num;
     }
     
     /**

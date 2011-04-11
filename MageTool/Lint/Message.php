@@ -26,6 +26,13 @@ class MageTool_Lint_Message
     protected $_message;
     
     /**
+     * The file in which the message was reported
+     *
+     * @var string
+     **/
+    protected $_filePath;
+    
+    /**
      * Arrany that maps the level of severity to output colour
      *
      * @var array
@@ -39,10 +46,11 @@ class MageTool_Lint_Message
         self::ADVICE => 'yellow'
     );
     
-    function __construct($level, $message)
+    function __construct($level, $message, $filePath = null)
     {
         $this->_level = $level;
         $this->_message = $message;
+        $this->_filePath = $filePath;
     }
     
     /**
@@ -70,11 +78,33 @@ class MageTool_Lint_Message
     /**
      * Return the message string
      *
-     * @return void
+     * @return string
      * @author Alistair Stead
      **/
     public function getMessage()
     {
         return $this->_message;
+    }
+    
+    /**
+     * Return the path to the file where the error was reported
+     *
+     * @return string
+     * @author Alistair Stead
+     **/
+    public function getFilePath()
+    {
+        return $this->_filePath;
+    }
+    
+    /**
+     * undocumented function
+     *
+     * @return string
+     * @author Alistair Stead
+     **/
+    public function getColour()
+    {
+        return $this->_colours[$this->getLevel()];
     }
 }

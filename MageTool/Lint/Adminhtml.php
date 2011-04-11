@@ -16,16 +16,17 @@ class MageTool_Lint_Adminhtml
     
     /**
      * Can this lint class validate this file
+     * 
+     * Can only validate config.xml
      *
-     * @param string $filePath The path from which the file can be loaded.
      * @return bool
      * @author Alistair Stead
      **/
     public function canValidate()
     {
-        // if (!strstr($filePath, 'adminhtml.xml')) {
-        //     return false;
-        // }
-        return true;
+        if (strstr($this->_filePath, 'adminhtml.xml')) {
+            return true;
+        }
+        return false;
     }
 }

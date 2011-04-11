@@ -51,14 +51,15 @@ class MageTool_Lint_Config
         try {
             $this->_config = new SimpleXMLElement($xml);
             $this->_requiredNodes();
-            // $this->_expectedNodes();
+            $this->_expectedNodes();
             $this->_unexpectedNodes();
             
         } catch (Exception $e) {
             $this->getLint()->addMessage(
                 new MageTool_Lint_Message(
                     MageTool_Lint_Message::ERROR,
-                    $e->getMessage()
+                    $e->getMessage(),
+                    $this->_filePath
                 )
             );
         }
@@ -74,7 +75,10 @@ class MageTool_Lint_Config
      **/
     public function canValidate()
     {
-        return true;
+        if (strstr($this->_filePath, 'config.xml')) {
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -99,7 +103,7 @@ class MageTool_Lint_Config
                 $this->getLint()->addMessage(
                     new MageTool_Lint_Message(
                         MageTool_Lint_Message::ERROR,
-                        "Required node [{$requiredNode}] missing in file::{$this->_filePath}"
+                        "Required node [{$requiredNode}] missing in file {$this->_filePath}"
                     )
                 );
             }
@@ -128,7 +132,7 @@ class MageTool_Lint_Config
                 $this->getLint()->addMessage(
                     new MageTool_Lint_Message(
                         MageTool_Lint_Message::ADVICE,
-                        "Optional node [{$expectedNode}] missing in file::{$this->_filePath}"
+                        "Optional node [{$expectedNode}] missing in file {$this->_filePath}"
                     )
                 );
             }
@@ -154,7 +158,7 @@ class MageTool_Lint_Config
                 $this->getLint()->addMessage(
                     new MageTool_Lint_Message(
                         MageTool_Lint_Message::WARNING,
-                        "Unexpected node [{$node}] in file::{$this->_filePath}"
+                        "Unexpected node [{$node}] in file {$this->_filePath}"
                     )
                 );
             }
