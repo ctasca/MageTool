@@ -50,9 +50,9 @@ class MageTool_Lint_Config
     {
         try {
             $this->_config = new SimpleXMLElement($xml);
-            $this->_requiredNodes();
-            $this->_expectedNodes();
-            $this->_unexpectedNodes();
+            $this->requiredNodes();
+            $this->expectedNodes();
+            $this->unexpectedNodes();
             
         } catch (Exception $e) {
             $this->getLint()->addMessage(
@@ -87,7 +87,7 @@ class MageTool_Lint_Config
      * @return void
      * @author Alistair Stead
      **/
-    protected function _requiredNodes()
+    public function requiredNodes()
     {
         $nodes     = array();
         foreach($this->_config as $node)
@@ -116,7 +116,7 @@ class MageTool_Lint_Config
      * @return void
      * @author Alistair Stead
      **/
-    protected function _expectedNodes()
+    public function expectedNodes()
     {
         $nodes = array();
         foreach($this->_config as $node)
@@ -145,7 +145,7 @@ class MageTool_Lint_Config
      * @return void
      * @author Alistair Stead
      **/
-    protected function _unexpectedNodes()
+    public function unexpectedNodes()
     {
         $nodes = array();
         foreach($this->_config as $node)
@@ -171,7 +171,7 @@ class MageTool_Lint_Config
      * @return void
      * @author Alistair Stead
      **/
-    protected function _classFiles()
+    public function classFiles()
     {
         foreach ($this->_classTypes as $classType) {
             $typeDir = Mage::getConfig()->getModuleDir('', $moduleName).DS.$classType;
