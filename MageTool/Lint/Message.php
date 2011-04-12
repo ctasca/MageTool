@@ -33,6 +33,13 @@ class MageTool_Lint_Message
     protected $_filePath;
     
     /**
+     * undocumented class variable
+     *
+     * @var string
+     **/
+    protected $_backTrace;
+    
+    /**
      * Arrany that maps the level of severity to output colour
      *
      * @var array
@@ -46,11 +53,12 @@ class MageTool_Lint_Message
         self::ADVICE => 'yellow'
     );
     
-    function __construct($level, $message, $filePath = null)
+    function __construct($level, $message, $filePath = null, $backTrace = null)
     {
         $this->_level = $level;
         $this->_message = $message;
         $this->_filePath = $filePath;
+        $this->_backTrace = $backTrace;
     }
     
     /**
