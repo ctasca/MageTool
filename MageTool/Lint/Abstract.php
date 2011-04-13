@@ -54,7 +54,7 @@ abstract class MageTool_Lint_Abstract
      **/
     public function validate($xml)
     {
-        $this->_config = new SimpleXMLElement($xml);
+        $this->setConfig(new SimpleXMLElement($xml));
         foreach(get_class_methods($this) as $method)
         {
             if(strpos($method, 'lint') ===0)
@@ -88,12 +88,14 @@ abstract class MageTool_Lint_Abstract
     /**
      * undocumented function
      *
-     * @return void
+     * @return MageTool_Lint_Interface
      * @author Alistair Stead
      **/
     public function setFilePath($filePath)
     {
         $this->_filePath = $filePath;
+        
+        return $this;
     }
 
     /**
@@ -117,6 +119,19 @@ abstract class MageTool_Lint_Abstract
     {
         $this->_lint = $lint;
 
+        return $this;
+    }
+    
+    /**
+     * undocumented function
+     *
+     * @return MageTool_Lint_Interface
+     * @author Alistair Stead
+     **/
+    public function setConfig(SimpleXMLElement $config)
+    {
+        $this->_config = $config;
+        
         return $this;
     }
 }

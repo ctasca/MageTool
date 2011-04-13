@@ -1,40 +1,17 @@
 <?php
 
 class MageTool_Lint_System
-    extends MageTool_Lint_Config
+    extends MageTool_Lint_Abstract
 {    
     /**
      * undocumented class variable
      *
      * @var string
      **/
-    protected $_expectedRootNodes = array(
+    protected $_expectedNodes = array(
         'tabs',
         'sections',
     );
-    
-    /**
-     * Validate the XML config is correctly structured
-     *
-     * @return void
-     * @author Alistair Stead
-     **/
-    public function validate($xml)
-    {
-        try {
-            $this->_config = new SimpleXMLElement($xml);
-            $this->_expectedNodes();
-            
-        } catch (Exception $e) {
-            $this->getLint()->addMessage(
-                new MageTool_Lint_Message(
-                    MageTool_Lint_Message::ERROR,
-                    $e->getMessage(),
-                    $this->_filePath
-                )
-            );
-        }
-    }
     
     /**
      * Can this lint class validate this file
@@ -50,5 +27,34 @@ class MageTool_Lint_System
             return true;
         }
         return false;
+    }
+    
+    /**
+     * Validate that the expected root nodes are present
+     *
+     * @return void
+     * @author Alistair Stead
+     **/
+    public function lintExpectedNodes()
+    {
+        $nodes = array();
+        foreach($this->_config as $node)
+        {
+            $nodes[] = $node->getName();
+        }
+
+        //if one of the expected modules is missing, fail
+        foreach($this->_expectedNodes as $expectedNode)
+        {
+            if(!in_array($expectedNode, $nodes))
+            {
+                $this->getLint()->addMessage(
+                    new MageTool_Lint_Message(
+                        MageTool_Lint_Message::ADVICE,
+                        "Optional node [{$expectedNode}] missing in file {$this->_filePath}"
+                    )
+                );
+            }
+        }
     }
 }

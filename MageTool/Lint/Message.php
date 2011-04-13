@@ -53,12 +53,12 @@ class MageTool_Lint_Message
         self::ADVICE => 'yellow'
     );
     
-    function __construct($level, $message, $filePath = null, $backTrace = null)
+    function __construct($level, $message, $filePath = null)
     {
         $this->_level = $level;
         $this->_message = $message;
         $this->_filePath = $filePath;
-        $this->_backTrace = $backTrace;
+        $this->_backTrace = debug_backtrace();
     }
     
     /**

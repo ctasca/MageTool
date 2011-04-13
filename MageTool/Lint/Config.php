@@ -78,8 +78,7 @@ class MageTool_Lint_Config
                 $this->getLint()->addMessage(
                     new MageTool_Lint_Message(
                         MageTool_Lint_Message::ERROR,
-                        "Required node [{$requiredNode}] missing in file {$this->_filePath}",
-                        debug_backtrace()
+                        "Required node [{$requiredNode}] missing in file {$this->_filePath}"
                     )
                 );
             }
@@ -108,8 +107,7 @@ class MageTool_Lint_Config
                 $this->getLint()->addMessage(
                     new MageTool_Lint_Message(
                         MageTool_Lint_Message::ADVICE,
-                        "Optional node [{$expectedNode}] missing in file {$this->_filePath}",
-                        debug_backtrace()
+                        "Optional node [{$expectedNode}] missing in file {$this->_filePath}"
                     )
                 );
             }
@@ -130,13 +128,13 @@ class MageTool_Lint_Config
             $nodes[] = $node->getName();
         }
         $allNodes = array_merge($this->_expectedNodes, $this->_requiredNodes);
+        
         foreach ($nodes as $node) {
             if (!in_array($node, $allNodes)) {
                 $this->getLint()->addMessage(
                     new MageTool_Lint_Message(
                         MageTool_Lint_Message::WARNING,
-                        "Unexpected node [{$node}] in file {$this->_filePath}",
-                        debug_backtrace()
+                        "Unexpected node [{$node}] in file {$this->_filePath}"
                     )
                 );
             }
@@ -149,10 +147,33 @@ class MageTool_Lint_Config
      * @return void
      * @author Alistair Stead
      **/
-    public function lintClassFilesExist()
+    public function lintModuleStructure()
     {
+        $modules = $this->_config->xpath('/config/modules/*');
+        
+        if (count($modules) > 1) {
+            $this->getLint()->addMessage(
+                new MageTool_Lint_Message(
+                    MageTool_Lint_Message::ERROR,
+                    "Your config file should not define more than a single module node"
+                )
+            );
+        }
+        
+        $moduleNode = $modules[0];
+        
         foreach ($this->_classTypes as $classType) {
-            $typeDir = Mage::getConfig()->getModuleDir('', $moduleName).DS.$classType;
+            $typeDir = Mage::getConfig()->getModuleDir('', $moduleNode->getName()).DS.$classType;
+            if (file_exists($typeDir)) {
+                $upperClassType = ucwords($classType);
+                $this->getLint()->addMessage(
+                    new MageTool_Lint_Message(
+                        MageTool_Lint_Message::ERROR,
+                        "The directory [{$classType}] should be [{$upperClassType}], this will
+                         cause problems on case sensative systems"
+                    )
+                );
+            }
         }
 
     }
@@ -164,19 +185,21 @@ class MageTool_Lint_Config
     * @author Alan Storm
     * @author Alistair Stead
     */
-    public function lintClassType($config)
+    public function lintClassType()
     {
-        $nodes = $this->_config->xPath('//class');
+        $nodes = $this->_config->xpath('//class');
         $errors = array();
-        foreach($nodes as $node)
-        {
+        foreach($nodes as $node) {
             $className = (string) $node;
-            if(strpos($className, '/') === false && strpos($className, '_') !== false)
-            {
+            if(strpos($className, '/') === false && strpos($className, '_') !== false) {
                 $parts = preg_split('{_}', $className, 4);
-                if(array_key_exists(2, $parts) && !in_array(strToLower($parts[2]), $this->_classTypes))
-                {
-                    $errors[] = "Invaid Type [$parts[2]] detected in class [$className]";
+                if(array_key_exists(2, $parts) && !in_array(strToLower($parts[2]), $this->_classTypes)) {
+                    $this->getLint()->addMessage(
+                        new MageTool_Lint_Message(
+                            MageTool_Lint_Message::ERROR,
+                            "Invaid Type [{$parts[2]}] detected in class [{$className}]"
+                        )
+                    );
                 }
             }
         }
@@ -191,29 +214,24 @@ class MageTool_Lint_Config
     * @author Alan Storm
     * @author Alistair Stead
     */
-    public function lintClassCase($config)
+    public function lintClassCase()
     {
         $classNodes = $this->_config->xPath('//class');
-        foreach($classNodes as $node)
-        {
+        foreach($classNodes as $node) {
             $className = (string) $node;
-            if(strpos($className, '/') !== false)
-            {
+            if(strpos($className, '/') !== false) {
                 // URI based class references e.g. core/model_app
                 // TODO add link to documentation to message
-                if($className != strToLower($className))
-                {
+                if ($className != strToLower($className)) {
                     $this->getLint()->addMessage(
                         new MageTool_Lint_Message(
                             MageTool_Lint_Message::ERROR,
-                            "URI [{$className}] must be all lowercase, this cause problems on case sensative systems",
-                            debug_backtrace()
+                            "URI [{$className}] must be all lowercase, this will cause 
+                            problems on case sensative systems"
                         )
                     );
                 }
-            }
-            else if(strpos($className, '_') !== false)
-            {
+            } else if (strpos($className, '_') !== false) {
                 // Class name convension is correct
                 // TODO add link to documentation to message
                 $parts = preg_split('{_}',$className,4);
@@ -224,22 +242,18 @@ class MageTool_Lint_Config
                         $this->getLint()->addMessage(
                             new MageTool_Lint_Message(
                                 MageTool_Lint_Message::ERROR,
-                                "Class [{$className}] does not have proper casing. Each_Word_Must_Be_Leading_Cased.",
-                                debug_backtrace()
+                                "Class [{$className}] does not have proper casing. Each_Word_Must_Be_Leading_Cased."
                             )
                         );
                     }
                 }
-            }
-            else
-            {
+            } else {
                 // Class name is anything but what it should be
                 // TODO add link to documentation to message
                 $this->getLint()->addMessage(
                     new MageTool_Lint_Message(
                         MageTool_Lint_Message::ERROR,
-                        "Class [{$className}] doesn't loook like a class",
-                        debug_backtrace()
+                        "Class [{$className}] doesn't loook like a class"
                     )
                 );
             }
