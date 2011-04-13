@@ -59,11 +59,19 @@ class MageTool_Lint
     {
         foreach ($this->getLints() as $lint) {
             foreach ($this->getXmlConfigPaths() as $filePath) {
-                $xml = file_get_contents($filePath);
-                $lint->setFilePath($filePath);
-                $lint->run($xml);
+                try {
+                    $xml = file_get_contents($filePath);
+                    $lint->setFilePath($filePath);
+                    $lint->run($xml);
+                } catch (Exception $e) {
+                    $this->addMessage(
+                        new MageTool_Lint_Message(
+                            MageTool_Lint_Message::ERROR,
+                            $e->getMessage()
+                        )
+                    );
+                }  
             }
-                
         }
     }
     
@@ -158,7 +166,6 @@ class MageTool_Lint
             $classToken = false;
             foreach ($fileTokens as $token) {
                 if (is_array($token)) {
-                    var_dump($token);
                     if ($token[0] == T_CLASS) {
                         $classToken = true;
                     } else if ($classToken && $token[0] == T_STRING) {
