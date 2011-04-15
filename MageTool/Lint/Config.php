@@ -36,6 +36,7 @@ class MageTool_Lint_Config
      */
     protected $_classTypes = array (
         'model',
+        'controller',
         'block',
         'helper'
     );
@@ -163,16 +164,20 @@ class MageTool_Lint_Config
         $moduleNode = $modules[0];
         
         foreach ($this->_classTypes as $classType) {
-            $typeDir = Mage::getConfig()->getModuleDir('', $moduleNode->getName()).DS.$classType;
-            if (file_exists($typeDir)) {
-                $upperClassType = ucwords($classType);
-                $this->getLint()->addMessage(
-                    new MageTool_Lint_Message(
-                        MageTool_Lint_Message::ERROR,
-                        "The directory [{$classType}] should be [{$upperClassType}], this will
-                         cause problems on case sensative systems"
-                    )
-                );
+            $upperClassType = ucwords($classType);
+            $typeDir = Mage::getConfig()->getModuleDir('model', $moduleNode->getName()) . DS . ucwords($classType);
+            $directoryName = dirname($typeDir);
+            $fileArray = glob($directoryName . '/*');
+            foreach($fileArray as $file) {
+                if($file === $classType) {
+                    $this->getLint()->addMessage(
+                        new MageTool_Lint_Message(
+                            MageTool_Lint_Message::ERROR,
+                            "The directory [{$classType}] should be [{$upperClassType}], this will
+                             cause problems on case sensative systems"
+                        )
+                    );
+                }
             }
         }
 
