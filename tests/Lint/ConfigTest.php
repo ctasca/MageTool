@@ -50,36 +50,107 @@ class Lint_ConfigTest extends PHPUnit_Framework_TestCase
         $xml = file_get_contents($testFilePath);
         
         // Configure the stub.
-        $this->_stubLint->expects($this->exactly(0))
+        $this->_stubLint->expects($this->exactly(3))
              ->method('addMessage');
         
         $lint = new MageTool_Lint_Config();
         $lint->setlint($this->_stubLint);
+        $lint->setFilePath($testFilePath);
         $lint->run($xml);
     } // validConfigFileShouldNotEnvokeAddMesssage
     
     /**
-     * missingRequiredNodesShouldEnvokeAddMessages
+     * missingRequiredNodesShouldEnvokeAddMessage
      * @author Alistair Stead
-     * 
+     * @test
      */
-    public function missingRequiredNodesShouldEnvokeAddMessages()
+    public function missingRequiredNodesShouldEnvokeAddMessage()
     {
         $testFilePath = $this->_invalidFixturePath . 'nodes-config.xml';
         $xml = file_get_contents($testFilePath);
+        $config = new SimpleXMLElement($xml);
         
         // Configure the stub.
-        $this->_stubLint->expects($this->exactly(13))
+        $this->_stubLint->expects($this->exactly(2))
              ->method('addMessage')
              ->will($this->returnArgument(0));
         
         $lint = new MageTool_Lint_Config();
         $lint->setlint($this->_stubLint);
-        $lint->run($xml);
+        $lint->setFilePath($testFilePath);
+        $lint->setConfig($config);
+        $lint->lintRequiredNodes();
+    } // missingRequiredNodesShouldEnvokeAddMessage 
+    
+    /**
+     * missingExpectedNodesShouldEnvokeAddMessage
+     * @author Alistair Stead
+     * @test
+     */
+    public function missingExpectedNodesShouldEnvokeAddMessage()
+    {
+        $testFilePath = $this->_invalidFixturePath . 'nodes-config.xml';
+        $xml = file_get_contents($testFilePath);
+        $config = new SimpleXMLElement($xml);
         
-        // $this->assertEquals(2, count($messages[MageTool_Lint_Message::ERROR]), 'Unexpected ERROR messages returned');
-        // $this->assertEquals(8, count($messages[MageTool_Lint_Message::ADVICE]), 'Unexpected ADVICE messages returned');
-        // $this->assertEquals(3, count($messages[MageTool_Lint_Message::WARNING]), 'Unexpected WARNING messages returned');
-    } // missingRequiredNodesShouldEnvokeAddMessages    
+        // Configure the stub.
+        $this->_stubLint->expects($this->exactly(8))
+             ->method('addMessage')
+             ->will($this->returnArgument(0));
+        
+        $lint = new MageTool_Lint_Config();
+        $lint->setlint($this->_stubLint);
+        $lint->setFilePath($testFilePath);
+        $lint->setConfig($config);
+        $lint->lintExpectedNodes();
+    } // missingExpectedNodesShouldEnvokeAddMessage
+       
+    /**
+     * unexpectedNodesShouldEnvokeAddMessage
+     * @author Alistair Stead
+     * @group unexpected
+     * @test
+     */
+    public function unexpectedNodesShouldEnvokeAddMessage()
+    {
+        $testFilePath = $this->_invalidFixturePath . 'nodes-config.xml';
+        $xml = file_get_contents($testFilePath);
+        $config = new SimpleXMLElement($xml);
+        
+        // Configure the stub.
+        $this->_stubLint->expects($this->exactly(3))
+             ->method('addMessage')
+             ->will($this->returnArgument(0));
+        
+        $lint = new MageTool_Lint_Config();
+        $lint->setlint($this->_stubLint);
+        $lint->setFilePath($testFilePath);
+        $lint->setConfig($config);
+        $lint->lintUnexpectedNodes();
+    } // unexpectedNodesShouldEnvokeAddMessage
+    
+    /**
+     * lintModuleStructureShouldEnvokeAddMessage
+     * @author Alistair Stead
+     * @group lintClassFiles
+     * @test
+     */
+    public function lintModuleStructureShouldEnvokeAddMessage()
+    {
+        $testFilePath = $this->_invalidFixturePath . 'classfiles-config.xml';
+        $xml = file_get_contents($testFilePath);
+        $config = new SimpleXMLElement($xml);
+        
+        // Configure the stub.
+        $this->_stubLint->expects($this->exactly(3))
+             ->method('addMessage')
+             ->will($this->returnArgument(0));
+        
+        $lint = new MageTool_Lint_Config();
+        $lint->setlint($this->_stubLint);
+        $lint->setFilePath($testFilePath);
+        $lint->setConfig($config);
+        $lint->lintModuleStructure();
+    } // lintModuleStructureShouldEnvokeAddMessage
     
 }
