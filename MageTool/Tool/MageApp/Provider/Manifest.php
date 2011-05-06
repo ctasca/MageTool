@@ -7,6 +7,7 @@ require_once 'MageTool/Tool/MageApp/Provider/Core/Indexer.php';
 require_once 'MageTool/Tool/MageApp/Provider/Core/Resource.php';
 require_once 'MageTool/Tool/MageApp/Provider/Core/Config.php';
 require_once 'MageTool/Tool/MageApp/Provider/App.php';
+require_once 'MageTool/Tool/MageApp/Provider/Audit.php';
 
 /**
  * @see Zend_Tool_Framework_Manifest_ProviderManifestable
@@ -26,6 +27,7 @@ class MageTool_Tool_MageApp_Provider_Manifest
             new MageTool_Tool_MageApp_Provider_Core_Resource(),
             new MageTool_Tool_MageApp_Provider_Core_Config(),
             new MageTool_Tool_MageApp_Provider_App(),
+            new MageTool_Tool_MageApp_Provider_Audit(),
             );
 
         return $providers;
