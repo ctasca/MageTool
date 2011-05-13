@@ -5,6 +5,7 @@
  */
 require_once 'MageTool/Tool/MageApp/Provider/Abstract.php';
 require_once 'Zend/Tool/Framework/Provider/Pretendable.php';
+require_once 'MageTool/Lint.php';
 
 /**
  * MageTool_Tool_MageApp_Provider_Core_Config provides commands to read and update the Magento
@@ -140,6 +141,66 @@ class MageTool_Tool_MageApp_Provider_Core_Config extends MageTool_Tool_MageApp_P
                     array('color' => array('white'))
                 );
             }
+        }
+    }
+    
+    /**
+     * Validate the Magento xml config using lint tests
+     *
+     * @return void
+     * @author Alistair Stead
+     **/
+    public function lint($configFilePath = 'app/code/local', $lintFilePath = null)
+    {
+        $this->_bootstrap();
+        // TODO search local file path and the supplied path for files that implement lint
+        $lints = array(
+          'MageTool_Lint_Xml' => 'MageTool/Lint/Xml.php',
+          'MageTool_Lint_Config' => 'MageTool/Lint/Config.php',
+          'MageTool_Lint_System' => 'MageTool/Lint/System.php',
+          'MageTool_Lint_Adminhtml' => 'MageTool/Lint/Adminhtml.php',
+          'MageTool_Lint_Api' => 'MageTool/Lint/Api.php'  
+        );
+        $lintObjects = array();
+        foreach ($lints as $lintClass => $includePath) {
+            try {
+                include_once $includePath;
+                $lintTest = new $lintClass;
+                $lintObjects[] = $lintTest;
+            } catch (MageTool_Lint_Exception $e) {
+                $this->_response->appendContent(
+                    "{$e->getMessage()}",
+                    array('color' => array('red'))
+                );
+            }     
+        }
+        
+        $lint = new MageTool_Lint();
+        $lint->setPathFilter($configFilePath);
+        // If an additional lint file path is supplied pass it to be loaded
+        if (!is_null($lintFilePath)) {
+            $lint->addLints($lintFilePath);
+        } else {
+            $lint->addLints($lintObjects);
+        }
+        $lint->run();
+        foreach ($lint->getMessages() as $message) {
+            $this->_response->appendContent(
+                "{$message->getLevel()}: {$message->getMessage()}",
+                array('color' => array($message->getColour()))
+            );    
+        }
+        $count = count($lint->getMessages());
+        if ($count > 0) {
+            $this->_response->appendContent(
+                "({$count}) Messages reported",
+                array('color' => array('red'))
+            );
+        } else {
+            $this->_response->appendContent(
+                "No errors found",
+                array('color' => array('green'))
+            );
         }
     }
 }
