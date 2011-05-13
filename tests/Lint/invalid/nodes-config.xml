@@ -1,0 +1,104 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    Mage
+ * @package     Mage_Core
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+-->
+<config>
+    <frontendaccess>
+        <routers>
+            <core>
+                <use>standard</use>
+                <args>
+                    <module>Mage_Core</module>
+                    <frontName>core</frontName>
+                </args>
+            </core>
+        </routers>
+        <translate>
+            <modules>
+                <Mage_Core>
+                    <files>
+                        <default>Mage_Core.csv</default>
+                    </files>
+                </Mage_Core>
+            </modules>
+        </translate>
+      <layout>
+          <updates>
+              <core>
+                  <file>core.xml</file>
+              </core>
+          </updates>
+      </layout>
+    </frontendaccess>
+    <adminhtmlview>
+        <translate>
+            <modules>
+                <Mage_Core>
+                    <files>
+                        <default>Mage_Core.csv</default>
+                    </files>
+                </Mage_Core>
+            </modules>
+        </translate>
+        <events>
+            <cms_wysiwyg_config_prepare>
+                <observers>
+                    <variable_observer>
+                        <class>core/variable_observer</class>
+                        <method>prepareWysiwygPluginConfig</method>
+                    </variable_observer>
+                </observers>
+            </cms_wysiwyg_config_prepare>
+            <controller_action_predispatch_adminhtml>
+                <observers>
+                    <synchronize_notification>
+                        <class>core/observer</class>
+                        <method>addSynchronizeNotification</method>
+                    </synchronize_notification>
+                </observers>
+            </controller_action_predispatch_adminhtml>
+            <show_synchronize_message>
+                <observers>
+                    <synchronize_notification>
+                        <class>core/observer</class>
+                        <method>addSynchronizeNotification</method>
+                    </synchronize_notification>
+                </observers>
+            </show_synchronize_message>
+        </events>
+    </adminhtmlview>
+    <installer>
+        <translate>
+            <modules>
+                <Mage_Core>
+                    <files>
+                        <default>Mage_Core.csv</default>
+                    </files>
+                </Mage_Core>
+            </modules>
+        </translate>
+    </installer>
+</config>
