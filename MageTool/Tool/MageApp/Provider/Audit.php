@@ -35,16 +35,18 @@ class MageTool_Tool_MageApp_Provider_Audit extends MageTool_Tool_MageApp_Provide
      **/
     public function deprecated()
     {
-        $this->_bootstrap();
+        /**
+         * Error reporting
+         */
         
+        $this->_bootstrap();
+
         $deprecatedStaticMethods = array();
         $deprecatedMethods = array();
 
-        $recursiveDirectoryIterator = new RecursiveDirectoryIterator('.');
-        $recursiveIteratorIterator = new RecursiveIteratorIterator($recursiveDirectoryIterator);
-        $regexIterator = new RegexIterator($recursiveIteratorIterator, '/^.+\.php$/i', RecursiveRegexIterator::GET_MATCH);
+        $fileIterator = $this->_getFiles('./app/');
 
-        foreach ($regexIterator as $filename => $fileinfo) {
+        foreach ($fileIterator as $filename => $fileinfo) {
             $class = null;
             $tokens = token_get_all(file_get_contents($filename));
             $numTokens = count($tokens);
@@ -54,12 +56,42 @@ class MageTool_Tool_MageApp_Provider_Audit extends MageTool_Tool_MageApp_Provide
                     if ($token[0] === T_CLASS) {
                         $classToken = true;
                     } else if ($classToken && $token[0] === T_STRING) {
-                        include_once $filename;
-                        $reflection = new ReflectionClass($token[1]);
-                        $class_token = false;
+                        $classToken = false;
+                        try {
+                            echo $token[1] . "\n";
+                            echo $filename . "\n";
+                            // include_once $filename;
+                            if (class_exists($token[1])) {
+                                $reflection = new ReflectionClass($token[1]);
+                            }
+                        } catch (Exception $e) {
+                            echo $e->getMessage() . "\n";
+                        }
                     }
-                }       
+                }
             }
         }
+    }
+    
+    
+    /**
+     * Retrieve an array of file paths after recursively searching
+     * the file system based on a regex pattern.
+     *
+     * @return RegexIterator
+     * @author Alistair Stead
+     **/
+    protected function _getFiles($path = null, $pattern = null)
+    {
+        if (is_null($path)) {
+            $path = '.';
+        }
+        if (is_null($pattern)) {
+            $pattern = '/^.+\.php$/i';
+        }
+        
+        $recursiveDirectoryIterator = new RecursiveDirectoryIterator($path);
+        $recursiveIteratorIterator = new RecursiveIteratorIterator($recursiveDirectoryIterator);
+        return new RegexIterator($recursiveIteratorIterator, $pattern, RecursiveRegexIterator::GET_MATCH);
     }
 }
