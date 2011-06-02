@@ -1,6 +1,6 @@
 <?php
 
-
+require_once 'MageTool/Tool/MageApp/Provider/Exception.php';
 /**
  * @see Zend_Tool_Framework_Provider_Interface
  */
