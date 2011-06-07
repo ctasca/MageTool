@@ -1,12 +1,6 @@
 <?php
 
 /**
- * @see MageTool_Tool_Core_Provider_Abstract
- */
-require_once 'MageTool/Tool/MageApp/Provider/Abstract.php';
-require_once 'Zend/Tool/Framework/Provider/Pretendable.php';
-
-/**
  * MageTool_Tool_MageApp_Provider_Core_Cache provides commands to clear the 
  * Magento cache from the command line
  *
