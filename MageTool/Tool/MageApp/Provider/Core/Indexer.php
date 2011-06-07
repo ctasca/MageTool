@@ -1,12 +1,6 @@
 <?php
 
 /**
- * @see MageTool_Tool_Core_Provider_Abstract
- */
-require_once 'MageTool/Tool/MageApp/Provider/Abstract.php';
-require_once 'Zend/Tool/Framework/Provider/Pretendable.php';
-
-/**
  * MageTool_Tool_MageApp_Provider_Core_Indexer commands that can be used to build
  * the magento flat table indexes.
  *

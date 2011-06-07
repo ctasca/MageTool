@@ -1,16 +1,5 @@
 <?php
 
-require_once 'MageTool/Tool/MageApp/Provider/Exception.php';
-/**
- * @see Zend_Tool_Framework_Provider_Interface
- */
-require_once 'Zend/Tool/Framework/Provider/Interface.php';
-
-/**
- * @see Zend_Tool_Framework_Registry_EnabledInterface
- */
-require_once 'Zend/Tool/Framework/Registry/EnabledInterface.php';
-
 /**
  * MageTool_MageApp_Providor_Abstract
  *
