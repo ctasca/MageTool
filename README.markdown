@@ -4,7 +4,15 @@ Additional ZF tools specifically for use during Magento development. Although Ma
 
 These tools have been created to facilitate a number of repetitive tasks during development. Rather than switching between mysql tools and the Magento admin system you can run simple command and improve your workflow greatly
 
-## Install ##
+## Notice ##
+
+----
+***NOTE: The 0.5.* release requires an update to your user .zf.ini as I have simplified the tool manifest for future releases.***
+
+This is intended to make future release of additional tools and commands much more simple. Please ensure you update your .zf.ini file to match the line shown in the "Installation Instructions" below 
+----
+
+## Installation Instructions ##
 
 First install ZF on your development machine.
 
@@ -26,7 +34,7 @@ Add the following line to load the additional MageTool commands:
 	
 After creating the user specific configuration file and adding the additional config lines the additional MageToll commands will be available for you to use with zf. To confirm that everything is installed correctly run the following command:
 
-	zf
+	$ zf
 	
 Your Zend Framework zf command line tool will now have the following additional commands:
 
