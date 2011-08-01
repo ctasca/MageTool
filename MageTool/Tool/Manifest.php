@@ -33,7 +33,6 @@ class MageTool_Tool_Manifest
                 new MageTool_Tool_MageApp_Provider_Core_Config(),
                 new MageTool_Tool_MageApp_Provider_App(),
                 new MageTool_Tool_MageExtension_Provider_Extension(),
-                new Mtool_Providers_Mtool(),
                 new Mtool_Providers_Module(),
                 new Mtool_Providers_Model(),
                 new Mtool_Providers_Rmodel(),
