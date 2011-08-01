@@ -1,11 +1,5 @@
 <?php
 
-/**
- * @see Zend_Tool_Project_Context_Filesystem_File
- */
-require_once 'Zend/Tool/Project/Context/Filesystem/File.php';
-
-
 class MageTool_Tool_MageExtension_Context_Extension_ConfigFile extends Zend_Tool_Project_Context_Filesystem_File
 {
 
@@ -51,16 +45,23 @@ class MageTool_Tool_MageExtension_Context_Extension_ConfigFile extends Zend_Tool
     <global>
         <models>
             <{$xmlName}>
+                <class>{$vendor}_{$name}_Model</class>
+                <resourceModel>{$xmlName}_entity</resourceModel>
             </{$xmlName}>
             <{$xmlName}_entity>
+                <class>{$vendor}_{$name}_Model_Entity</class>
+                <entities>
+                </entities>
             </{$xmlName}_entity>
         </models>
         <blocks>
             <{$xmlName}>
+                <class>{$vendor}_{$name}_Block</class>
             </{$xmlName}>
         </blocks>
         <helpers>
             <{$xmlName}>
+                <class>{$vendor}_{$name}_Helper</class>
             </{$xmlName}>
         </helpers>
         <resources>
@@ -92,6 +93,13 @@ class MageTool_Tool_MageExtension_Context_Extension_ConfigFile extends Zend_Tool
         <{$xmlName}>
         </{$xmlName}>
     </default>
+    <phpunit>
+        <suite>
+            <modules>
+                 <{$vendor}_{$name} />
+            </modules>
+        </suite>
+    </phpunit>
 </config>
 EOS;
     }

@@ -4,7 +4,15 @@ Additional ZF tools specifically for use during Magento development. Although Ma
 
 These tools have been created to facilitate a number of repetitive tasks during development. Rather than switching between mysql tools and the Magento admin system you can run simple command and improve your workflow greatly
 
-## Install ##
+## Notice ##
+
+----
+***NOTE: The 0.5.* release requires an update to your user .zf.ini as I have simplified the tool manifest for future releases.***
+
+This is intended to make future release of additional tools and commands much more simple. Please ensure you update your .zf.ini file to match the line shown in the "Installation Instructions" below 
+----
+
+## Installation Instructions ##
 
 First install ZF on your development machine.
 
@@ -20,106 +28,81 @@ Once you have installed ZF and MageTool you will need to create configuration fo
 
 	vim ~/.zf.ini
 	
-Add the following lines to load the additional MageTool commands:
+Add the following line to load the additional MageTool commands:
 
-	basicloader.classes.1 = "MageTool_Tool_MageApp_Provider_Manifest"
-	basicloader.classes.2 = "MageTool_Tool_MageExtension_Provider_Manifest"
+	basicloader.classes.0 = "MageTool_Tool_Manifest"
 	
 After creating the user specific configuration file and adding the additional config lines the additional MageToll commands will be available for you to use with zf. To confirm that everything is installed correctly run the following command:
 
-	zf
+	$ zf
 	
-Response:
+Your Zend Framework zf command line tool will now have the following additional commands:
 
-	Zend Framework Command Line Console Tool v1.10.8
-	Usage:
-	    zf [--global-opts] action-name [--action-opts] provider-name [--provider-opts] [provider parameters ...]
-	    Note: You may use "?" in any place of the above usage string to ask for more specific help information.
-	    Example: "zf ? version" will list all available actions for the version provider.
+    MageAdminUser
+      zf show mage-admin-user
+      zf create mage-admin-user username email password firstname[=Admin] lastname[=User]
 
-	Providers and their actions:
-	  Version
-	    zf show version mode[=mini] name-included[=1]
-	    Note: There are specialties, use zf show version.? to get specific help on them.
+    MageCoreCache
+      zf clear mage-core-cache tags[=all]
+      zf flush mage-core-cache
+      zf enable mage-core-cache tags[=all]
+      zf disable mage-core-cache tags[=all]
 
-	  Config
-	    zf create config
-	    zf show config
-	    Note: There are specialties, use zf enable config.? to get specific help on them.
-	    Note: There are specialties, use zf disable config.? to get specific help on them.
+    MageCoreCompiler
+      zf run mage-core-compiler
+      zf clear mage-core-compiler
+      zf enable mage-core-compiler
+      zf disable mage-core-compiler
+      zf stat mage-core-compiler
 
-	  Phpinfo
-	    zf show phpinfo
+    MageCoreIndexer
+      zf info mage-core-indexer code[=all]
+      zf mode mage-core-indexer mode code[=all]
+      zf run mage-core-indexer code[=all]
 
-	  Manifest
-	    zf show manifest
+    MageCoreResource
+      zf show mage-core-resource code
+      zf delete mage-core-resource code
+      zf update mage-core-resource module
 
-	  Profile
-	    zf show profile
+    MageCoreConfig
+      zf show mage-core-config path scope
+      zf set mage-core-config path value scope
+      zf replace mage-core-config match value path scope
+      zf lint mage-core-config config-file-path[=app/code/local] lint-file-path
 
-	  Project
-	    zf create project path name-of-profile file-of-profile
-	    zf show project
-	    Note: There are specialties, use zf show project.? to get specific help on them.
+    MageApp
+      zf version mage-app
+      zf dispatch-event mage-app name data
 
-	  Application
-	    zf change application.class-name-prefix class-name-prefix
+    MageExtension
+      zf create mage-extension vendor name pool[=local] file-of-profile
 
-	  Model
-	    zf create model name module
+    mtool
+      zf info mtool
 
-	  View
-	    zf create view controller-name action-name-or-simple-name
+    mage-module
+      zf create mage-module name
+      zf install mage-module name version
+      zf upgrade mage-module name mode version
 
-	  Controller
-	    zf create controller name index-action-included[=1] module
+    mage-model
+      zf create mage-model target-module model-path
+      zf add mage-model model-path
+      zf rewrite mage-model target-module origin-model your-model
 
-	  Action
-	    zf create action name controller-name[=Index] view-included[=1] module
+    mage-rmodel
+      zf rewrite mage-rmodel target-module origin-model your-model
 
-	  Module
-	    zf create module name
+    mage-helper
+      zf create mage-helper target-module helper-path
+      zf add mage-helper helper-path
+      zf rewrite mage-helper target-module origin-helper your-helper
 
-	  Form
-	    zf create form name module
-
-	  Layout
-	    zf enable layout
-	    zf disable layout
-
-	  DbAdapter
-	    zf configure db-adapter dsn section-name[=production]
-
-	  DbTable
-	    zf create db-table name actual-table-name module force-overwrite
-	    Note: There are specialties, use zf create db-table.? to get specific help on them.
-
-	  ProjectProvider
-	    zf create project-provider name actions
-
-	  MageAdminUser
-	    zf show mage-admin-user
-	    zf create mage-admin-user username email password firstname[=Admin] lastname[=User]
-
-	  MageCoreCache
-	    zf clear mage-core-cache
-	    zf enable mage-core-cache
-	    zf disable mage-core-cache
-
-	  MageCoreResource
-	    zf show mage-core-resource
-	    zf delete mage-core-resource path
-
-	  MageCoreConfig
-	    zf show mage-core-config path scope
-	    zf set mage-core-config path scope value
-	    zf replace mage-core-config match value path scope
-
-	  MageApp
-	    zf version mage-app
-
-	  MageExtension
-	    zf create mage-extension vendor name pool[=local] file-of-profile
+    mage-block
+      zf create mage-block target-module block-path
+      zf add mage-block block-path
+      zf rewrite mage-block target-module origin-block your-block
 	
 ## Example Usage ##
 

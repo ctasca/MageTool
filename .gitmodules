@@ -1,3 +1,6 @@
 [submodule "MageTool/lib/Configlint"]
 	path = MageTool/lib/Configlint
 	url = https://github.com/astorm/Configlint.git
+[submodule "MageTool/lib/MTool"]
+	path = MageTool/lib/MTool
+	url = git@github.com:alistairstead/MTool.git

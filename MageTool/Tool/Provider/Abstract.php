@@ -1,16 +1,4 @@
 <?php
-
-require_once 'MageTool/Tool/Provider/Exception.php';
-/**
- * @see Zend_Tool_Framework_Provider_Interface
- */
-require_once 'Zend/Tool/Framework/Provider/Interface.php';
-
-/**
- * @see Zend_Tool_Framework_Registry_EnabledInterface
- */
-require_once 'Zend/Tool/Framework/Registry/EnabledInterface.php';
-
 /**
  * undocumented class
  *
