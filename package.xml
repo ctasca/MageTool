@@ -28,10 +28,9 @@
  </stability>
  <license uri="http://opensource.org/licenses/osl-3.0.php">OSL 3.0</license>
  <notes>
-Added new config lint functionality
-Updated other commands to provide more feedback
-Fixed a bug with exception handling for extension generation
-Integrated downstream commits for the extension skeleton files
+Integrated MTool for Module and Class generation functionality
+Created a global manifest
+Introduced an autoloader and removed static includes
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -83,7 +82,7 @@ Integrated downstream commits for the extension skeleton files
    <file baseinstalldir="/" md5sum="13d43fb078136ff4c33ce4804ce1f826" name="MageTool/Lint/Message.php" role="php" />
    <file baseinstalldir="/" md5sum="e8c3cd3dc2d6cb3be68f033024c94603" name="MageTool/Lint/System.php" role="php" />
    <file baseinstalldir="/" md5sum="0c4e7b526f50210d839fe1a1d221bb8c" name="MageTool/Lint/Xml.php" role="php" />
-   <file baseinstalldir="/" md5sum="75d33e6725b8572c663346b6523bb5a2" name="MageTool/Tool/Manifest.php" role="php" />
+   <file baseinstalldir="/" md5sum="3935cec2ff03b5515ca11ad80c1c76bd" name="MageTool/Tool/Manifest.php" role="php" />
    <file baseinstalldir="/" md5sum="40b6a594bea0ee341389e22ed8fe38f6" name="MageTool/Tool/MageApp/Exception.php" role="php">
     <tasks:replace from="@package_version@" to="version" type="package-info" />
    </file>
@@ -94,9 +93,6 @@ Integrated downstream commits for the extension skeleton files
     <tasks:replace from="@package_version@" to="version" type="package-info" />
    </file>
    <file baseinstalldir="/" md5sum="2d0618e67880c2493109431f5fc02618" name="MageTool/Tool/MageApp/Provider/Exception.php" role="php">
-    <tasks:replace from="@package_version@" to="version" type="package-info" />
-   </file>
-   <file baseinstalldir="/" md5sum="56cfb57e0be84a10fc7621b91cfdea8f" name="MageTool/Tool/MageApp/Provider/Manifest.php" role="php">
     <tasks:replace from="@package_version@" to="version" type="package-info" />
    </file>
    <file baseinstalldir="/" md5sum="93dbd2e4a14806ff41f096abec3f8f66" name="MageTool/Tool/MageApp/Provider/Admin/User.php" role="php">
@@ -143,9 +139,6 @@ Integrated downstream commits for the extension skeleton files
    </file>
    <file baseinstalldir="/" md5sum="34981377ff764c5325b1f3fe0448ab67" name="MageTool/Tool/MageExtension/Provider/Exception.php" role="php" />
    <file baseinstalldir="/" md5sum="3875371a54441a7b6c0d857217b74714" name="MageTool/Tool/MageExtension/Provider/Extension.php" role="php">
-    <tasks:replace from="@package_version@" to="version" type="package-info" />
-   </file>
-   <file baseinstalldir="/" md5sum="663490898bbd9fd3d2a98531423cd8a3" name="MageTool/Tool/MageExtension/Provider/Manifest.php" role="php">
     <tasks:replace from="@package_version@" to="version" type="package-info" />
    </file>
    <file baseinstalldir="/" md5sum="8f0a6ba44d569abfa86cb6753017120f" name="MageTool/Tool/Provider/Abstract.php" role="php" />
@@ -253,20 +246,19 @@ Integrated downstream commits for the extension skeleton files
   </release>
   <release>
    <version>
-    <release>0.5.1</release>
-    <api>0.5.1</api>
+    <release>0.5.0</release>
+    <api>0.5.0</api>
    </version>
    <stability>
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2011-08-01</date>
+   <date>2011-06-07</date>
    <license uri="http://opensource.org/licenses/osl-3.0.php">OSL 3.0</license>
    <notes>
-Added new config lint functionality
-Updated other commands to provide more feedback
-Fixed a bug with exception handling for extension generation
-Integrated downstream commits for the extension skeleton files
+Integrated MTool for Module and Class generation functionality
+Created a global manifest
+Introduced an autoloader and removed static includes
    </notes>
   </release>
  </changelog>
