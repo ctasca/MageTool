@@ -2,9 +2,13 @@
 
 Additional ZF tools specifically for use during Magento development. Although Magento uses a great number of Zend Framework components and has a similar architecture to a Zend Framework application. It does not have any command line tools for use during development.
 
-These tools have been created to facilitate a number of repetitive tasks during development. Rather than switching between mysql tools and the Magento admin system you can run simple command and improve your workflow greatly
+These tools have been created to facilitate a number of repetitive tasks during development. Rather than switching between mysql tools and the Magento admin system you can run simple command and improve your workflow greatly. Since the 0.5.* release it also provides access to the commands from Mtool http://github.com/dankocherga/MTool
 
 ## Notice ##
+
+First ensure you are using the latest version of PEAR
+
+    $ sudo pear upgrade pear
 
 ----
 ***NOTE: The 0.5.* release requires an update to your user .zf.ini as I have simplified the tool manifest for future releases.***
@@ -16,21 +20,19 @@ This is intended to make future release of additional tools and commands much mo
 
 First install ZF on your development machine.
 
-	sudo pear channel-discover pear.zfcampus.org
-	sudo pear install zfcampus/zf
+	$ sudo pear channel-discover pear.zfcampus.org
+	$ sudo pear install zfcampus/zf
 	
 Install MageTool on your development machine.
 
-	sudo pear channel-discover pear.magetool.co.uk
-	sudo pear install magetool/magetool
+	$ sudo pear channel-discover pear.magetool.co.uk
+	$ sudo pear install magetool/magetool
 	
-Once you have installed ZF and MageTool you will need to create configuration for your user by creating the following file:
+Once you have installed ZF and MageTool you will need to create configuration for your user by creating a .zf.ini file using the following command:
 
-	vim ~/.zf.ini
+	$ echo 'basicloader.classes.1 = "MageTool_Tool_Manifest"' | tee ~/.zf.ini 
 	
-Add the following line to load the additional MageTool commands:
-
-	basicloader.classes.0 = "MageTool_Tool_Manifest"
+*** If you are upgrading from previous versions you will need to ensure you update the .zf.ini file. ***
 	
 After creating the user specific configuration file and adding the additional config lines the additional MageToll commands will be available for you to use with zf. To confirm that everything is installed correctly run the following command:
 
