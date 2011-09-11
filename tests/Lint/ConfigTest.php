@@ -30,10 +30,9 @@ class Lint_ConfigTest extends PHPUnit_Framework_TestCase
     public function setUp()
     {
         parent::setUp();
-        // Initialise Magento
-        Mage::app();
-        $this->_validFixturePath = dirname(__FILE__) . DS . 'valid' . DS;
-        $this->_invalidFixturePath = dirname(__FILE__) . DS . 'invalid' . DS;
+
+        $this->_validFixturePath = dirname(__FILE__) . '/valid/';
+        $this->_invalidFixturePath = dirname(__FILE__) . '/invalid/';
         
         // Create a stub for the SomeClass class.
         $this->_stubLint = $this->getMock('MageTool_Lint');

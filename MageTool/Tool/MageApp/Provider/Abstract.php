@@ -13,14 +13,14 @@ abstract class MageTool_Tool_MageApp_Provider_Abstract
      * @var Zend_Tool_Framework_Registry_Interface
      */
     protected $_registry = null;
-    
+
     /**
      * Internal request object
      *
      * @var Zend_Tool_Framework_Request
      **/
     protected $_request;
-    
+
     /**
      * Internal response object
      *
@@ -39,7 +39,7 @@ abstract class MageTool_Tool_MageApp_Provider_Abstract
         $this->_registry = $registry;
         return $this;
     }
-    
+
     /**
      * undocumented function
      *
@@ -50,11 +50,11 @@ abstract class MageTool_Tool_MageApp_Provider_Abstract
     {
         //load Magento
         $mageFilename = 'app/Mage.php';
-        $this->_isInstalled($mageFilename);
-        require_once $mageFilename;
-        Mage::setIsDeveloperMode(true);
-        Mage::app();
-        
+        if ($this->_isInstalled($mageFilename)) {
+            require_once $mageFilename;
+            Mage::setIsDeveloperMode(true);
+            Mage::app();
+        }
         // get request/response object
         $this->_request = $this->_registry->getRequest();
         $this->_response = $this->_registry->getResponse();
@@ -69,14 +69,14 @@ abstract class MageTool_Tool_MageApp_Provider_Abstract
     {
         if (!file_exists($mageFilename)) {
             throw new MageTool_Tool_MageApp_Provider_Exception(
-                'The mage.php file can not be located. 
+                'The mage.php file can not be located.
                 You must run this command within a Magento project.'
             );
         }
-        
+
         return true;
     }
-    
+
     /**
      * Build the current directory path
      *

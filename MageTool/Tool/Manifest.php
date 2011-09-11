@@ -1,4 +1,6 @@
 <?php
+require_once 'Zend/Tool/Framework/Manifest/ProviderManifestable.php';
+require_once 'Zend/Tool/Framework/Manifest/ActionManifestable.php';
 class MageTool_Tool_Manifest 
     implements Zend_Tool_Framework_Manifest_ProviderManifestable, Zend_Tool_Framework_Manifest_ActionManifestable
 {
@@ -48,5 +50,31 @@ class MageTool_Tool_Manifest
         $actions = array();
 
         return $actions;
+    }
+    
+    /**
+     * Converts PHP errors into PHPCheckApi\Reporter\Result\Error
+     * 
+     * @param integer $errno
+     * @param string  $errstr
+     * @param string  $errfile
+     * @param integer $errline
+     * 
+     * @return void|boolean
+     */
+    public static function errorHandler($errno, $errstr, $errfile, $errline)
+    {
+        if (!($errno & error_reporting())) {
+            return;
+        }
+
+        $backtrace = debug_backtrace();
+        array_shift($backtrace);
+
+        var_dump(
+            $errstr, $errno, $errfile, $errline, $backtrace
+        );
+
+        return true;
     }
 }
