@@ -16,31 +16,32 @@ class MageTool_Tool_Manifest
          $paths = array(
             $basePath . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'lib' . DIRECTORY_SEPARATOR . 'MTool'
          );
-        
+
         $incPaths = implode(PATH_SEPARATOR, $paths);
         set_include_path($incPaths . PATH_SEPARATOR . get_include_path());
         $autoloader = Zend_Loader_Autoloader::getInstance();
         $autoloader->registerNamespace('Mtool_');
         $autoloader->registerNamespace('MageTool_');
     }
-    
+
     public function getProviders()
     {
         $providers = array(
-                new MageTool_Tool_MageApp_Provider_Admin_User(),
-                new MageTool_Tool_MageApp_Provider_Core_Cache(),
-                new MageTool_Tool_MageApp_Provider_Core_Compiler(),
-                new MageTool_Tool_MageApp_Provider_Core_Indexer(),
-                new MageTool_Tool_MageApp_Provider_Core_Resource(),
-                new MageTool_Tool_MageApp_Provider_Core_Config(),
-                new MageTool_Tool_MageApp_Provider_App(),
-                new MageTool_Tool_MageExtension_Provider_Extension(),
-                new Mtool_Providers_Module(),
-                new Mtool_Providers_Model(),
-                new Mtool_Providers_Rmodel(),
-                new Mtool_Providers_Helper(),
-                new Mtool_Providers_Block(),
-            );
+            new MageTool_Tool_Provider_MageTool(),
+            new MageTool_Tool_MageApp_Provider_Admin_User(),
+            new MageTool_Tool_MageApp_Provider_Core_Cache(),
+            new MageTool_Tool_MageApp_Provider_Core_Compiler(),
+            new MageTool_Tool_MageApp_Provider_Core_Indexer(),
+            new MageTool_Tool_MageApp_Provider_Core_Resource(),
+            new MageTool_Tool_MageApp_Provider_Core_Config(),
+            new MageTool_Tool_MageApp_Provider_App(),
+            new MageTool_Tool_MageExtension_Provider_Extension(),
+            new Mtool_Providers_Module(),
+            new Mtool_Providers_Model(),
+            new Mtool_Providers_Rmodel(),
+            new Mtool_Providers_Helper(),
+            new Mtool_Providers_Block(),
+        );
 
         return $providers;
     }
@@ -51,15 +52,15 @@ class MageTool_Tool_Manifest
 
         return $actions;
     }
-    
+
     /**
      * Converts PHP errors into PHPCheckApi\Reporter\Result\Error
-     * 
+     *
      * @param integer $errno
      * @param string  $errstr
      * @param string  $errfile
      * @param integer $errline
-     * 
+     *
      * @return void|boolean
      */
     public static function errorHandler($errno, $errstr, $errfile, $errline)
