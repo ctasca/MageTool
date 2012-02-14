@@ -1,0 +1,6 @@
+default:
+  context:
+    parameters:
+      base_url: ~
+      browser: ~
+      javascript_session: ~
