@@ -10,14 +10,14 @@ class CompilerTest extends PHPUnit_Framework_TestCase
      * @var MageTool_Tool_MageExtension_Provider_Extension
      **/
     protected $extension;
-    
+
     public function setUp()
     {
         parent::setUp();
-        
+
         $this->extension = new MageTool_Tool_MageApp_Provider_Core_Compiler;
     }
-    
+
     /**
      * getNameShouldReturnString
      * @author Alistair Stead
@@ -25,11 +25,10 @@ class CompilerTest extends PHPUnit_Framework_TestCase
      */
     public function getNameShouldReturnString()
     {
-        $this->assertEquals( 
-            $this->extension->getName(), 
-            'MageCoreCompiler', 
-            'The providor does not return the expected string name' 
+        $this->assertEquals(
+            $this->extension->getName(),
+            'MageCoreCompiler',
+            'The providor does not return the expected string name'
         );
     } // getNameShouldReturnString
-    
 }
