@@ -28,8 +28,6 @@ class FeatureContext extends Behat\Mink\Behat\Context\MinkContext
      */
     public function iShouldSee(PyStringNode $expected)
     {
-        var_dump($this->output);
-        var_dump($expected->__toString());
         assertContains($expected->__toString(), $this->output);
     }
 
