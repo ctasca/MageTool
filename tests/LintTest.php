@@ -77,7 +77,7 @@ class LintTest extends PHPUnit_Framework_TestCase
         $this->assertTrue( is_array($lint->getXmlConfigPaths()), 'Array not returned' );
         $this->assertEquals(1, count($lint->getXmlConfigPaths()), 'Number of array items is not what was expected');
     } // getXmlConfigPathsShouldReturnSingleItemWhenFilePathIsSet
-    
+
     /**
      * runShouldCallEachLintClassRunMethod
      * @author Alistair Stead
@@ -91,14 +91,14 @@ class LintTest extends PHPUnit_Framework_TestCase
         $stub->expects($this->any())
              ->method('appendContent')
              ->will($this->returnArgument(0));
-             
+
         $this->_lint->run($stub);
     } // runShouldCallEachLintClassRunMethod
-    
+
     /**
      * Provide access to protected methods by using reflection
      *
-     * @param string $name 
+     * @param string $name
      * @return void
      * @author Alistair Stead
      */
@@ -107,7 +107,7 @@ class LintTest extends PHPUnit_Framework_TestCase
         $class = new ReflectionClass('MageTool_Lint');
         $method = $class->getMethod($name);
         $method->setAccessible(true);
-      
+
         return $method;
     }
 }

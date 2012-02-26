@@ -52,8 +52,9 @@ abstract class MageTool_Tool_MageApp_Provider_Abstract
         $mageFilename = 'app/Mage.php';
         if ($this->_isInstalled($mageFilename)) {
             require_once $mageFilename;
-            Mage::setIsDeveloperMode(true);
-            Mage::app();
+            // TODO evaluate if the DB connection is needed at this point
+            // Mage::setIsDeveloperMode(true);
+            // Mage::app();
         }
         // get request/response object
         $this->_request = $this->_registry->getRequest();
@@ -69,7 +70,7 @@ abstract class MageTool_Tool_MageApp_Provider_Abstract
     {
         if (!file_exists($mageFilename)) {
             throw new MageTool_Tool_MageApp_Provider_Exception(
-                'The mage.php file can not be located.
+                'The app/Mage.php file can not be located.
                 You must run this command within a Magento project.'
             );
         }

@@ -26,7 +26,7 @@ class MageTool_Tool_Manifest
 
     public function getProviders()
     {
-        $providers = array(
+        return array(
             new MageTool_Tool_Provider_MageTool(),
             new MageTool_Tool_MageApp_Provider_Admin_User(),
             new MageTool_Tool_MageApp_Provider_Core_Cache(),
@@ -42,15 +42,11 @@ class MageTool_Tool_Manifest
             new Mtool_Providers_Helper(),
             new Mtool_Providers_Block(),
         );
-
-        return $providers;
     }
 
     public function getActions()
     {
-        $actions = array();
-
-        return $actions;
+        return array();
     }
 
     /**
