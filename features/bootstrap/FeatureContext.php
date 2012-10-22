@@ -1,34 +1,11 @@
 <?php
 
-use Behat\Behat\Context\ClosuredContextInterface,
-    Behat\Behat\Context\BehatContext,
-    Behat\Behat\Exception\PendingException;
+use Behat\Behat\Context\BehatContext;
 
-use Behat\Gherkin\Node\PyStringNode,
-    Behat\Gherkin\Node\TableNode;
-
-require_once 'mink/autoload.php';
-
-/**
- * Features context.
- */
-class FeatureContext extends Behat\Mink\Behat\Context\MinkContext
+class FeatureContext extends BehatContext
 {
-
-    /**
-     * @When /^I use the command "([^"]*)"$/
-     */
-    public function iUseTheCommand($command)
+    public function __construct()
     {
-        $this->output = shell_exec($command);
+        $this->useContext('console', new ConsoleContext(array()));
     }
-
-    /**
-     * @Then /^I should see$/
-     */
-    public function iShouldSee(PyStringNode $expected)
-    {
-        assertContains($expected->__toString(), $this->output);
-    }
-
 }
