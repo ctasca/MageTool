@@ -1,0 +1,38 @@
+{
+    "name": "MageTool/MageTool",
+    "description": "Command line utility for working with Magento",
+    "keywords": ["Magento", "cli", "MageTool", "generator"],
+    "homepage": "http://magetool.co.uk",
+    "minimum-stability": "dev",
+    "authors": [
+        {
+            "name": "Alistair Stead",
+            "email": "alistair.stead@designdisclosure.com",
+            "homepage": "http://www.designdisclosure.com"
+        }
+    ],
+    "autoload": {
+        "psr-0": { "": "src/" }
+    },
+    "require": {
+        "php": ">=5.3.2",
+        "symfony/console": "2.1.*",
+        "symfony/finder": "2.1.*",
+        "symfony/process": "2.1.*@dev"
+    },
+    "require-dev": {
+        "behat/behat": "*",
+        "phpspec/phpspec2": "*",
+        "phpunit/phpunit": "*"
+    },
+    "autoload": {
+        "psr-0": {
+            "MageTool": "src/"
+        }
+    },
+    "minimum-stability": "dev",
+    "config": {
+        "bin-dir": "bin"
+    },
+    "bin": ["bin/mt"]
+}
