@@ -10,3 +10,7 @@ Feature: Compiled to Phar
     """
     MageTool
     """
+    And I should not see
+    """
+    @package_version@
+    """

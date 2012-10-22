@@ -26,4 +26,15 @@ class PharContext extends BehatContext
             throw new \RuntimeException("Can't compile mt.phar " . $this->process->getOutput());
         }
     }
+
+    /**
+     * @Given /^I should not see$/
+     */
+    public function iShouldNotSee(PyStringNode $string)
+    {
+        if (strpos($this->process->getOutput(), $string->getRaw()) !== false)
+        {
+            throw new \RuntimeException("String $string->getRaw() should not be found in " . $this->process->getOutput());
+        }
+    }
 }
