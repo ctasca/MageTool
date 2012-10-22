@@ -6,13 +6,13 @@ use PHPSpec2\ObjectBehavior;
 
 class MageTool extends ObjectBehavior
 {
-    function it_should_exist()
+    function it_should_be_initializable()
     {
-        $this->mageTool->shouldNotBe(null);
+        $this->shouldHaveType('MageTool\MageTool');
     }
-    
+
     function it_should_have_a_version()
     {
-        $this->mageTool->getVersion()->shouldReturn('2.0.0-dev');
+        // $this->shouldHaveProperty('VERSION')->shouldEqual('@package_version@');
     }
 }
