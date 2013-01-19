@@ -12,13 +12,15 @@ class MageTool_Tool_Manifest
          * Set include path
          */
          $paths = array(
-            $basePath . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'lib' . DIRECTORY_SEPARATOR . 'MTool'
+            $basePath . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'lib' . DIRECTORY_SEPARATOR . 'MTool',
+            $basePath . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'lib' . DIRECTORY_SEPARATOR . 'Local'
          );
         
         $incPaths = implode(PATH_SEPARATOR, $paths);
         set_include_path($incPaths . PATH_SEPARATOR . get_include_path());
         $autoloader = Zend_Loader_Autoloader::getInstance();
         $autoloader->registerNamespace('Mtool_');
+        $autoloader->registerNamespace('MyMtool_');
         $autoloader->registerNamespace('MageTool_');
     }
     
@@ -38,6 +40,7 @@ class MageTool_Tool_Manifest
                 new Mtool_Providers_Rmodel(),
                 new Mtool_Providers_Helper(),
                 new Mtool_Providers_Block(),
+                new MyMtool_Providers_Phtml(),
             );
 
         return $providers;
