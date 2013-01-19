@@ -9,18 +9,18 @@
  * It is also available through the world-wide-web at this URL:
  * http://opensource.org/licenses/osl-3.0.php
  *
- * @category   Mtool
- * @package    Mtool_Providers
+ * @category   MyMtool
+ * @package    MyMtool_Providers
  * @copyright  Copyright (C) 2011 Oggetto Web ltd (http://oggettoweb.com/)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * Block provider
+ * Phtml file provider
  *
- * @category   Mtool
- * @package    Mtool_Providers
- * @author     Daniel Kocherga <dan@oggettoweb.com>
+ * @category   MyMtool
+ * @package    MyMtool_Providers
+ * @author     Carlo Tasca <carlo.tasca.mail@gmail.com>
  */
 class MyMtool_Providers_Phtml extends MyMtool_Providers_Entity
 {
@@ -39,8 +39,8 @@ class MyMtool_Providers_Phtml extends MyMtool_Providers_Entity
      * @param string $targetModule in format of companyname/modulename
      * @param string $blockPath in format of mymodule/block_path
      */
-    public function create($targetModule = null, $blockPath = null)
+    public function create($targetModule = null, $blockPath = null, $phtml = null)
     {
-        $this->_createPhtmlEntity(new MyMtool_Codegen_Entity_Phtml(), 'phtml', $targetModule, $blockPath);
+        $this->_createPhtmlEntity(new MyMtool_Codegen_Entity_Phtml(), '.phtml file', $targetModule, $blockPath, $phtml);
     }
 }
