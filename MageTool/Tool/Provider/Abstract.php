@@ -24,7 +24,7 @@ abstract class MageTool_Tool_Provider_Abstract
         $this->_registry = $registry;
         return $this;
     }
-    
+
     /**
      * undocumented function
      *
@@ -37,7 +37,7 @@ abstract class MageTool_Tool_Provider_Abstract
         $mageFilename = 'app/Mage.php';
         $this->_isInstalled($mageFilename);
     }
-    
+
     /**
      * Find the mage file and confirm Magento is installed
      *
@@ -50,10 +50,10 @@ abstract class MageTool_Tool_Provider_Abstract
             throw new MageTool_Tool_Provider_Exception('The mage.php file can not be located. 
             You must run this command within a Magento project.');
         }
-        
+
         return true;
     }
-    
+
     /**
      * Build the current directory path
      *

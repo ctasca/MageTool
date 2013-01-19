@@ -1,4 +1,6 @@
 <?php
+require_once 'Zend/Tool/Framework/Manifest/ProviderManifestable.php';
+require_once 'Zend/Tool/Framework/Manifest/ActionManifestable.php';
 class MageTool_Tool_Manifest 
     implements Zend_Tool_Framework_Manifest_ProviderManifestable, Zend_Tool_Framework_Manifest_ActionManifestable
 {
@@ -15,7 +17,7 @@ class MageTool_Tool_Manifest
             $basePath . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'lib' . DIRECTORY_SEPARATOR . 'MTool',
             $basePath . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'lib' . DIRECTORY_SEPARATOR . 'Local'
          );
-        
+
         $incPaths = implode(PATH_SEPARATOR, $paths);
         set_include_path($incPaths . PATH_SEPARATOR . get_include_path());
         $autoloader = Zend_Loader_Autoloader::getInstance();
@@ -23,7 +25,7 @@ class MageTool_Tool_Manifest
         $autoloader->registerNamespace('MyMtool_');
         $autoloader->registerNamespace('MageTool_');
     }
-    
+
     public function getProviders()
     {
         $providers = array(
@@ -48,8 +50,32 @@ class MageTool_Tool_Manifest
 
     public function getActions()
     {
-        $actions = array();
+        return array();
+    }
 
-        return $actions;
+    /**
+     * Converts PHP errors into PHPCheckApi\Reporter\Result\Error
+     *
+     * @param integer $errno
+     * @param string  $errstr
+     * @param string  $errfile
+     * @param integer $errline
+     *
+     * @return void|boolean
+     */
+    public static function errorHandler($errno, $errstr, $errfile, $errline)
+    {
+        if (!($errno & error_reporting())) {
+            return;
+        }
+
+        $backtrace = debug_backtrace();
+        array_shift($backtrace);
+
+        var_dump(
+            $errstr, $errno, $errfile, $errline, $backtrace
+        );
+
+        return true;
     }
 }

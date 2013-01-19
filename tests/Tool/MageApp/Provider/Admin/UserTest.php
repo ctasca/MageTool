@@ -10,22 +10,21 @@ class UserTest extends PHPUnit_Framework_TestCase
      * @var MageTool_Tool_MageExtension_Provider_Extension
      **/
     protected $extension;
-    
+
     public function setUp()
     {
         parent::setUp();
-        
+
         $this->extension = new MageTool_Tool_MageApp_Provider_Admin_User;
     }
-    
+
     /**
-     * getNameShouldReturnSTring
+     * getNameShouldReturnString
      * @author Alistair Stead
      * @test
      */
-    public function getNameShouldReturnSTring()
+    public function getNameShouldReturnString()
     {
         $this->assertEquals( $this->extension->getName(), 'MageAdminUser', 'The providor does not return the expected string name' );
-    } // getNameShouldReturnSTring
-    
+    }
 }
