@@ -1,4 +1,4 @@
-<?php
+<?php 
 /**
  * Mage Tool
  *
@@ -14,28 +14,15 @@
  * @copyright  Copyright (C) 2011 Oggetto Web ltd (http://oggettoweb.com/)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 /**
- * Abstract code generator
+ * Phtml file generator
  *
  * @category   MyMtool
  * @package    MyMtool_Codegen
  * @author     Carlo Tasca <carlo.tasca.mail@gmail.com>
  */
- abstract class MyMtool_Codegen_Entity_Abstract extends Mtool_Codegen_Entity_Abstract
+class MyMtool_Codegen_Entity_Adminhtml_Phtml extends MyMtool_Codegen_Entity_Phtml
 {
-	/**
-     * Create new phtml entity
-     *  
-     * @param string $path 
-     * @param string $filename
-     */
-    public function createPhtml($module, $path, $filename)
-    {
-        // Create phtml file
-        $this->createDesignFile($module,$this->_createTemplate, $path, $filename);
-    }
-	
 	/**
      * Create design file
      * 
@@ -48,7 +35,7 @@
     public function createDesignFile($module, $template, $path, $filename, $params = array())
     {
 
-		$phtmlDir = 'app/design/' . $path ;
+		$phtmlDir = 'app/design/adminhtml/default/default/' . $path ;
 		$phtmlFilename = $filename . '.phtml';
         // Create class dir under design folder (when in Magento home dir)
 		Mtool_Codegen_Filesystem::mkdir( $phtmlDir );

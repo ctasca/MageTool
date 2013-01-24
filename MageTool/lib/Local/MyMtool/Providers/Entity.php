@@ -24,6 +24,11 @@
  */
 class MyMtool_Providers_Entity extends Mtool_Providers_Entity
 {
+	
+	protected function _askPath ($name) 
+	{
+		return $this->_ask("Enter the {$name} path (in format of frontend/base/default/template)");
+	}
 	/**
      * Create entity
      *
@@ -39,19 +44,14 @@ class MyMtool_Providers_Entity extends Mtool_Providers_Entity
             $targetModule = $this->_ask('Enter the target module (in format of Mycompany/Mymodule)');
         }
         if ($entityPath == null) {
-            $entityPath = $this->_ask("Enter the {$name} path (in format of frontend/base/default)");
+            $entityPath = $this->_askPath($name);
         }
-		
 		if ($filename == null) {
             $filename = $this->_ask("Enter the {$name} name (without .phtml extension)");
         }
-		
 		list($companyName, $moduleName) = explode('/', $targetModule);
-
         $module = new Mtool_Codegen_Entity_Module(getcwd(), $moduleName, $companyName, $this->_getConfig());
-		
 		$entity->createPhtml($module, $entityPath, $filename);
-
         $this->_answer('Done');
     }
 
