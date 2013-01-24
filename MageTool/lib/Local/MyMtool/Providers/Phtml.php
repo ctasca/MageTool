@@ -39,8 +39,8 @@ class MyMtool_Providers_Phtml extends MyMtool_Providers_Entity
      * @param string $targetModule in format of companyname/modulename
      * @param string $blockPath in format of mymodule/block_path
      */
-    public function create($targetModule = null, $blockPath = null, $phtml = null)
+    public function create($path = null, $phtml = null)
     {
-        $this->_createPhtmlEntity(new MyMtool_Codegen_Entity_Phtml(), '.phtml file', $targetModule, $blockPath, $phtml);
+        $this->_createPhtmlEntity(new MyMtool_Codegen_Entity_Phtml(), '.phtml file', $path, $phtml);
     }
 }

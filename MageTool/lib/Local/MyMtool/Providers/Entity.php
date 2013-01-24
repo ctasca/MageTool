@@ -24,43 +24,16 @@
  */
 class MyMtool_Providers_Entity extends Mtool_Providers_Entity
 {
-    /**
-     * Create entity
-     *
-     * @param Mtool_Codegen_Entity_Abstract $entity
-     * @param string $name
-     * @param string $targetModule in format of companyname/modulename
-     * @param string $entityPath in format of mymodule/model_path
-     */
-    protected function _createEntity($entity, $name, $targetModule = null, $entityPath = null)
-    {
-        if ($targetModule == null) {
-            $targetModule = $this->_ask('Enter the target module (in format of Mycompany/Mymodule)');
-        }
-        if ($entityPath == null) {
-            $entityPath = $this->_ask("Enter the {$name} path (in format of mymodule/{$name}_path)");
-        }
-
-        list($companyName, $moduleName) = explode('/', $targetModule);
-
-        $module = new Mtool_Codegen_Entity_Module(getcwd(), $moduleName, $companyName, $this->_getConfig());
-
-        list($namespace, $entityName) = explode('/', $entityPath);
-
-        $entity->create($namespace, $entityName, $module);
-
-        $this->_answer('Done');
-    }
-	
 	/**
      * Create entity
      *
      * @param Mtool_Codegen_Entity_Abstract $entity
      * @param string $name
-     * @param string $targetModule in format of companyname/modulename
+	 * @param string $targetModule
      * @param string $entityPath in format of mymodule/model_path
+     * @param string $filename in format of filename (without phtml extension)
      */
-    protected function _createPhtmlEntity($entity, $name, $targetModule = null, $entityPath = null, $phtml = null)
+    protected function _createPhtmlEntity($entity, $name, $targetModule = null, $entityPath = null, $filename = null)
     {
         if ($targetModule == null) {
             $targetModule = $this->_ask('Enter the target module (in format of Mycompany/Mymodule)');
@@ -69,17 +42,15 @@ class MyMtool_Providers_Entity extends Mtool_Providers_Entity
             $entityPath = $this->_ask("Enter the {$name} path (in format of frontend/base/default)");
         }
 		
-		if ($phtml == null) {
-            $phtml = $this->_ask("Enter the {$name} name (without .phtml extension)");
+		if ($filename == null) {
+            $filename = $this->_ask("Enter the {$name} name (without .phtml extension)");
         }
+		
+		list($companyName, $moduleName) = explode('/', $targetModule);
 
-//        list($companyName, $moduleName) = explode('/', $targetModule);
-//
-//        $module = new Mtool_Codegen_Entity_Module(getcwd(), $moduleName, $companyName, $this->_getConfig());
-//
-//        list($namespace, $entityName) = explode('/', $entityPath);
-//
-//        $entity->create($namespace, $entityName, $module);
+        $module = new Mtool_Codegen_Entity_Module(getcwd(), $moduleName, $companyName, $this->_getConfig());
+		
+		$entity->createPhtml($module, $entityPath, $filename);
 
         $this->_answer('Done');
     }
