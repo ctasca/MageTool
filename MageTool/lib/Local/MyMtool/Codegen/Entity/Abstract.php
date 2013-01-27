@@ -37,6 +37,18 @@
     }
 	
 	/**
+     * Create new phtml entity
+     *  
+     * @param string $path 
+     * @param string $filename
+     */
+    public function createConfigEvent($module, $area, $event, $observer, $class, $method)
+    {
+        // Create event config node
+        $this->createEventConfigNode($module, $area, $event, $observer, $class, $method);
+    }
+	
+	/**
      * Create design file
      * 
      * @param string $path in format: class_path_string 
@@ -62,4 +74,12 @@
 		$phtmlTemplate->move($phtmlDir, $phtmlFilename);
         return $phtmlDir;
     }
+	
+	public function createEventConfigNode ($module, $area, $event, $observer, $class, $method)
+	{
+		$config = new Mtool_Codegen_Config($module->getConfigPath('config.xml'));
+		$configPath = "$area/events/$event/observers/$observer";
+        $config->set($configPath . '/class', $class);
+        $config->set($configPath . '/method', $method);
+	}
 }

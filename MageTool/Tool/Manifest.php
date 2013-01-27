@@ -42,7 +42,8 @@ class MageTool_Tool_Manifest
                 new Mtool_Providers_Block(),
                 new MyMtool_Providers_Phtml(),
                 new MyMtool_Providers_FrontendPhtml(),
-                new MyMtool_Providers_AdminhtmlPhtml()
+                new MyMtool_Providers_AdminhtmlPhtml(),
+				new MyMtool_Providers_Config_Event()
             );
 
         return $providers;
