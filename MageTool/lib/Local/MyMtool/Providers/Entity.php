@@ -80,5 +80,21 @@ class MyMtool_Providers_Entity extends Mtool_Providers_Entity
 		$entity->createConfigEvent($module, $area, $event, $observer, $class, $method);
         $this->_answer('Done');
 	}
+	
+	protected function _setConfigVersion ($entity, $name, $targetModule = null, $version = null)
+	{
+		if ($targetModule == null) {
+            $targetModule = $this->_ask('Enter the target module (in format of Mycompany/Mymodule)');
+        }
+		
+		if ($version == null) {
+            $version = $this->_ask('Enter the version number (e.g. 1.0.1)');
+        }
+		
+		list($companyName, $moduleName) = explode('/', $targetModule);
+        $module = new Mtool_Codegen_Entity_Module(getcwd(), $moduleName, $companyName, $this->_getConfig());
+		$entity->setConfigVersion($module, $version);
+        $this->_answer('Done');
+	}
 
 }
