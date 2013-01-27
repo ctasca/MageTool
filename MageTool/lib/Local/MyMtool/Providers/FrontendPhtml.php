@@ -22,15 +22,19 @@
  * @package    MyMtool_Providers
  * @author     Carlo Tasca <carlo.tasca.mail@gmail.com>
  */
-class MyMtool_Providers_Phtml extends MyMtool_Providers_Entity
+class MyMtool_Providers_FrontendPhtml extends MyMtool_Providers_Entity
 {
-    /**
+    protected function _askPath ($name) 
+	{
+		return $this->_ask("Enter the {$name} path (in format of base/default/template)");
+	}
+	/**
      * Get provider name
      * @return string
      */
     public function getName()
     {
-        return 'mage-phtml';
+        return 'mage-frontend-phtml';
     }
 	
 	/**
@@ -41,6 +45,6 @@ class MyMtool_Providers_Phtml extends MyMtool_Providers_Entity
      */
     public function create($targetModule = null, $path = null, $phtml = null)
     {
-        $this->_createPhtmlEntity(new MyMtool_Codegen_Entity_Phtml(), '.phtml file', $targetModule, $path, $phtml);
+        $this->_createPhtmlEntity(new MyMtool_Codegen_Entity_Frontend_Phtml(), '.phtml file', $targetModule ,$path, $phtml);
     }
 }
