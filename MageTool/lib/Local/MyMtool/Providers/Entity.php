@@ -54,5 +54,31 @@ class MyMtool_Providers_Entity extends Mtool_Providers_Entity
 		$entity->createPhtml($module, $entityPath, $filename);
         $this->_answer('Done');
     }
+	
+	protected function _createConfigEvent($entity, $name, $targetModule = null, $area = null, $event = null, $observer = null, $class = null, $method = null)
+	{
+		if ($targetModule == null) {
+            $targetModule = $this->_ask('Enter the target module (in format of Mycompany/Mymodule)');
+        }
+		if ($area == null) {
+            $area = $this->_ask('Enter the event area (global, frontend, default or admin)');
+        }
+        if ($event == null) {
+            $event = $this->_ask('Enter the event node (in format of controller_action_layout_render_before)');
+        }
+		if ($observer == null) {
+            $observer = $this->_ask('Enter the observer node (in format of module_observer)');
+        }
+		if ($class == null) {
+            $class = $this->_ask('Enter the observer model class (in format of module/observer)');
+        }
+		if ($method == null) {
+            $method = $this->_ask('Enter the observer method (in format of observerMethod)');
+        }
+		list($companyName, $moduleName) = explode('/', $targetModule);
+        $module = new Mtool_Codegen_Entity_Module(getcwd(), $moduleName, $companyName, $this->_getConfig());
+		$entity->createConfigEvent($module, $area, $event, $observer, $class, $method);
+        $this->_answer('Done');
+	}
 
 }
