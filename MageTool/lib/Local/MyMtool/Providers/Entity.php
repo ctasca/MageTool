@@ -96,5 +96,22 @@ class MyMtool_Providers_Entity extends Mtool_Providers_Entity
 		$entity->setConfigVersion($module, $version);
         $this->_answer('Done');
 	}
+	
+	protected function _setConfigLayout($entity, $name, $targetModule = null, $area = null, $layout = null)
+	{
+		if ($targetModule == null) {
+            $targetModule = $this->_ask('Enter the target module (in format of Mycompany/Mymodule)');
+        }
+		if ($area == null) {
+            $area = $this->_ask('Enter the layout area (frontend or adminhtml)');
+        }
+        if ($layout == null) {
+            $layout = $this->_ask('Enter the layout file (in format of dir/filename.xml)');
+        }
+		list($companyName, $moduleName) = explode('/', $targetModule);
+        $module = new Mtool_Codegen_Entity_Module(getcwd(), $moduleName, $companyName, $this->_getConfig());
+		$entity->setConfigLayout($module, $area, $layout);
+        $this->_answer('Done');
+	}
 
 }

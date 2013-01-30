@@ -16,7 +16,7 @@
  */
 
 /**
- * Phtml file provider
+ * Sets module version node in config.xml
  *
  * @category   MyMtool
  * @package    MyMtool_Providers

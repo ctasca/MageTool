@@ -61,6 +61,18 @@
     }
 	
 	/**
+     * Create new phtml entity
+     *  
+     * @param string $path 
+     * @param string $filename
+     */
+    public function setConfigLayout($module, $area, $layout)
+    {
+        // Create event config node
+        $this->setConfigLayoutNode($module, $area, $layout);
+    }
+	
+	/**
      * Create design file
      * 
      * @param string $path in format: class_path_string 
@@ -100,5 +112,13 @@
 		$config = new Mtool_Codegen_Config($module->getConfigPath('config.xml'));
 		$configPath = "modules/{$module->getName()}/version";
 		$config->set($configPath, $version);
+	}
+	
+	public function setConfigLayoutNode ($module, $area, $layout)
+	{
+		$config = new Mtool_Codegen_Config($module->getConfigPath('config.xml'));
+		$lcModuleName = strtolower($module->getModuleName());
+		$configPath = "$area/layout/updates/$lcModuleName";
+        $config->set($configPath . '/file', $layout);
 	}
 }
