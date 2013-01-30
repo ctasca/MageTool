@@ -16,13 +16,13 @@
  */
 
 /**
- * Sets events node in config.xml
+ * Sets layout node in config.xml
  *
  * @category   MyMtool
  * @package    MyMtool_Providers
  * @author     Carlo Tasca <carlo.tasca.mail@gmail.com>
  */
-class MyMtool_Providers_Config_Event extends MyMtool_Providers_Entity
+class MyMtool_Providers_Config_Layout extends MyMtool_Providers_Entity
 {
     /**
      * Get provider name
@@ -30,14 +30,14 @@ class MyMtool_Providers_Config_Event extends MyMtool_Providers_Entity
      */
     public function getName()
     {
-        return 'mage-config-event';
+        return 'mage-config-layout';
     }
 	
 	/**
 	 * 
      */
-    public function create($targetModule = null, $area = null, $event = null, $observer = null, $class = null, $method = null)
+    public function set($targetModule = null, $area = null, $layout = null)
     {
-        $this->_createConfigEvent(new MyMtool_Codegen_Entity_Config(), 'event node', $targetModule, $area, $event, $observer, $class, $method);
+        $this->_setConfigLayout(new MyMtool_Codegen_Entity_Config(), 'layout node', $targetModule, $area, $layout);
     }
 }
