@@ -24,12 +24,7 @@
  */
  abstract class MyMtool_Codegen_Entity_Abstract extends Mtool_Codegen_Entity_Abstract
 {
-	protected function _cdataWrap ($string)
-	{
-		return ("<![CDATA[" . $string . "]]>");
-	}
-	
-		/**
+	/**
      * Create design phtml file
      * 
      * @param string $path in format: class_path_string 
