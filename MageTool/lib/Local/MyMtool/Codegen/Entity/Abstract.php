@@ -24,56 +24,13 @@
  */
  abstract class MyMtool_Codegen_Entity_Abstract extends Mtool_Codegen_Entity_Abstract
 {
-	/**
-     * Create new phtml entity
-     *  
-     * @param string $path 
-     * @param string $filename
-     */
-    public function createPhtml($module, $path, $filename)
-    {
-        // Create phtml file
-        $this->createDesignFile($module,$this->_createTemplate, $path, $filename);
-    }
+	protected function _cdataWrap ($string)
+	{
+		return ("<![CDATA[" . $string . "]]>");
+	}
 	
-	/**
-     * Create new phtml entity
-     *  
-     * @param string $path 
-     * @param string $filename
-     */
-    public function createConfigEvent($module, $area, $event, $observer, $class, $method)
-    {
-        // Create event config node
-        $this->createEventConfigNode($module, $area, $event, $observer, $class, $method);
-    }
-	
-	/**
-     * Create new phtml entity
-     *  
-     * @param string $path 
-     * @param string $filename
-     */
-    public function setConfigVersion($module, $version)
-    {
-        // Create event config node
-        $this->setConfigVersionNode($module, $version);
-    }
-	
-	/**
-     * Create new phtml entity
-     *  
-     * @param string $path 
-     * @param string $filename
-     */
-    public function setConfigLayout($module, $area, $layout)
-    {
-        // Create event config node
-        $this->setConfigLayoutNode($module, $area, $layout);
-    }
-	
-	/**
-     * Create design file
+		/**
+     * Create design phtml file
      * 
      * @param string $path in format: class_path_string 
      * @param string $template 
@@ -81,7 +38,7 @@
      * @param array $params 
      * @return resulting class name
      */
-    public function createDesignFile($module, $template, $path, $filename, $params = array())
+    protected function _createDesignFile($module, $template, $path, $filename, $params = array())
     {
 
 		$phtmlDir = 'app/design/' . $path ;
@@ -99,7 +56,7 @@
         return $phtmlDir;
     }
 	
-	public function createEventConfigNode ($module, $area, $event, $observer, $class, $method)
+	protected function _createEventConfigNode ($module, $area, $event, $observer, $class, $method)
 	{
 		$config = new Mtool_Codegen_Config($module->getConfigPath('config.xml'));
 		$configPath = "$area/events/$event/observers/$observer";
@@ -107,18 +64,82 @@
         $config->set($configPath . '/method', $method);
 	}
 	
-	public function setConfigVersionNode ($module, $version)
+	protected function _setConfigVersionNode ($module, $version)
 	{
 		$config = new Mtool_Codegen_Config($module->getConfigPath('config.xml'));
 		$configPath = "modules/{$module->getName()}/version";
 		$config->set($configPath, $version);
 	}
 	
-	public function setConfigLayoutNode ($module, $area, $layout)
+	protected function _setConfigLayoutNode ($module, $area, $layout)
 	{
 		$config = new Mtool_Codegen_Config($module->getConfigPath('config.xml'));
 		$lcModuleName = strtolower($module->getModuleName());
 		$configPath = "$area/layout/updates/$lcModuleName";
         $config->set($configPath . '/file', $layout);
+	}
+	
+	protected function _setConfigSystemDefaultNode ($module, $section, $group, $field, $value, $cdata)
+	{
+		$configPath = "default/system/$section/$group/$field";
+		if ($cdata == 'y') {
+			$config = new MyMtool_Codegen_Config($module->getConfigPath('config.xml'));
+			$config->set($configPath, $value, true);
+		} else {
+			$config = new Mtool_Codegen_Config($module->getConfigPath('config.xml'));
+			$config->set($configPath, $value);
+		}
+	}
+	 /**
+     * Create new phtml entity
+     *  
+     * @param string $path 
+     * @param string $filename
+     */
+    public function createPhtml($module, $path, $filename)
+    {
+        // Create phtml file
+        $this->_createDesignFile($module,$this->_createTemplate, $path, $filename);
+    }
+	
+	/**
+     * Create new phtml entity
+     *  
+     * @param string $path 
+     * @param string $filename
+     */
+    public function createConfigEvent($module, $area, $event, $observer, $class, $method)
+    {
+        // Create event config node
+        $this->_createEventConfigNode($module, $area, $event, $observer, $class, $method);
+    }
+	
+	/**
+     * Create new phtml entity
+     *  
+     * @param string $path 
+     * @param string $filename
+     */
+    public function setConfigVersion($module, $version)
+    {
+        // Create event config node
+        $this->_setConfigVersionNode($module, $version);
+    }
+	
+	/**
+     * Create new phtml entity
+     *  
+     * @param string $path 
+     * @param string $filename
+     */
+    public function setConfigLayout($module, $area, $layout)
+    {
+        // Create event config node
+        $this->_setConfigLayoutNode($module, $area, $layout);
+    }
+	
+	public function setConfigSystemDefault($module, $section, $group, $field, $value, $cdata)
+	{
+		$this->_setConfigSystemDefaultNode ($module, $section, $group, $field, $value, $cdata);
 	}
 }

@@ -45,7 +45,8 @@ class MageTool_Tool_Manifest
                 new MyMtool_Providers_AdminhtmlPhtml(),
 				new MyMtool_Providers_Config_Event(),
 				new MyMtool_Providers_Config_Version(),
-				new MyMtool_Providers_Config_Layout()
+				new MyMtool_Providers_Config_Layout(),
+				new MyMtool_Providers_Config_System_Default()
             );
 
         return $providers;
