@@ -113,5 +113,31 @@ class MyMtool_Providers_Entity extends Mtool_Providers_Entity
 		$entity->setConfigLayout($module, $area, $layout);
         $this->_answer('Done');
 	}
+	
+	protected function _setConfigSystemDefault($entity, $name, $targetModule = null, $section = null, $group = null, $field = null, $value = null, $cdata = null) 
+	{
+		if ($targetModule == null) {
+            $targetModule = $this->_ask('Enter the target module (in format of Mycompany/Mymodule)');
+        }
+		if ($section == null) {
+            $section = $this->_ask('Enter the section name');
+        }
+        if ($group == null) {
+            $group = $this->_ask('Enter the group name');
+        }
+		if ($field == null) {
+            $field = $this->_ask('Enter the field name');
+        }
+		if ($value == null) {
+            $value = $this->_ask('Enter the field value (Note: do not enter HTML)');
+        }
+		if ($cdata == null) {
+            $cdata = $this->_ask('Wrap value in CDATA?');
+        }
+		list($companyName, $moduleName) = explode('/', $targetModule);
+        $module = new Mtool_Codegen_Entity_Module(getcwd(), $moduleName, $companyName, $this->_getConfig());
+		$entity->setConfigSystemDefault($module, $section, $group, $field, $value, $cdata);
+        $this->_answer('Done');
+	}
 
 }
