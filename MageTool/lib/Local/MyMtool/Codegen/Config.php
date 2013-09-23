@@ -78,10 +78,11 @@ class MyMtool_Codegen_Config extends Mtool_Codegen_Config
 
 		Mtool_Codegen_Filesystem::write($this->_path, $this->asPrettyXML($cdata));
 	}
-	
-	/**
+
+    /**
      * Format xml with indents and line breaks
      *
+     * @param bool $cdata
      * @return string
      * @author Gary Malcolm
      */

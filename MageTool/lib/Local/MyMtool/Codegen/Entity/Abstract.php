@@ -24,15 +24,16 @@
  */
  abstract class MyMtool_Codegen_Entity_Abstract extends Mtool_Codegen_Entity_Abstract
 {
-	/**
-     * Create design phtml file
-     * 
-     * @param string $path in format: class_path_string 
-     * @param string $template 
-     * @param Mtool_Codegen_Entity_Module $module
-     * @param array $params 
-     * @return resulting class name
-     */
+     /**
+      * Create design phtml file
+      *
+      * @param Mtool_Codegen_Entity_Module $module
+      * @param string                      $template
+      * @param string                      $path in format: class_path_string
+      * @param                             $filename
+      * @param array                       $params
+      * @return resulting class name
+      */
     protected function _createDesignFile($module, $template, $path, $filename, $params = array())
     {
 

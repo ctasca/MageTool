@@ -32,12 +32,14 @@ class MyMtool_Providers_Phtml extends MyMtool_Providers_Entity
     {
         return 'mage-phtml';
     }
-	
-	/**
+
+    /**
      * Create block
      *
      * @param string $targetModule in format of companyname/modulename
-     * @param string $blockPath in format of mymodule/block_path
+     * @param null   $path
+     * @param null   $phtml
+     * @internal param string $blockPath in format of mymodule/block_path
      */
     public function create($targetModule = null, $path = null, $phtml = null)
     {
