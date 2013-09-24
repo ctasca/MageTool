@@ -23,7 +23,7 @@
  * @subpackage Entity
  * @author     Daniel Kocherga <dan@oggettoweb.com>
  */
-class MyMtool_Codegen_Entity_Suite_Module extends Mtool_Codegen_Entity_Abstract
+class MyMtool_Codegen_Entity_Suite_Module extends MyMtool_Codegen_Entity_Suite_Abstract
 {
     /*
      * Upgrade modes

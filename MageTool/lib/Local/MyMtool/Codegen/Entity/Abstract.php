@@ -86,55 +86,76 @@
 			$config->set($configPath, $value);
 		}
 	}
-	 /**
-     * Create new phtml entity
-     *  
-     * @param string $path 
-     * @param string $filename
-     */
+
+     /**
+      * Create new phtml entity
+      *
+      * @param        $module
+      * @param string $path
+      * @param string $filename
+      */
     public function createPhtml($module, $path, $filename)
     {
         // Create phtml file
         $this->_createDesignFile($module,$this->_createTemplate, $path, $filename);
     }
-	
-	/**
-     * Create new phtml entity
-     *  
-     * @param string $path 
-     * @param string $filename
-     */
+
+     /**
+      * Create new phtml entity
+      *
+      * @param $module
+      * @param $area
+      * @param $event
+      * @param $observer
+      * @param $class
+      * @param $method
+      * @internal param string $path
+      * @internal param string $filename
+      */
     public function createConfigEvent($module, $area, $event, $observer, $class, $method)
     {
         // Create event config node
         $this->_createEventConfigNode($module, $area, $event, $observer, $class, $method);
     }
-	
-	/**
-     * Create new phtml entity
-     *  
-     * @param string $path 
-     * @param string $filename
-     */
+
+     /**
+      * Create new phtml entity
+      *
+      * @param $module
+      * @param $version
+      * @internal param string $path
+      * @internal param string $filename
+      */
     public function setConfigVersion($module, $version)
     {
         // Create event config node
         $this->_setConfigVersionNode($module, $version);
     }
-	
-	/**
-     * Create new phtml entity
-     *  
-     * @param string $path 
-     * @param string $filename
-     */
+
+     /**
+      * Create new phtml entity
+      *
+      * @param $module
+      * @param $area
+      * @param $layout
+      * @internal param string $path
+      * @internal param string $filename
+      */
     public function setConfigLayout($module, $area, $layout)
     {
         // Create event config node
         $this->_setConfigLayoutNode($module, $area, $layout);
     }
-	
-	public function setConfigSystemDefault($module, $section, $group, $field, $value, $cdata)
+
+     /**
+      * @param $module
+      * @param $section
+      * @param $group
+      * @param $field
+      * @param $value
+      * @param $cdata
+      */
+     public function setConfigSystemDefault($module, $section, $group, $field, $value, $cdata)
 	{
 		$this->_setConfigSystemDefaultNode ($module, $section, $group, $field, $value, $cdata);
 	}
