@@ -22,35 +22,25 @@
  * @package    MyMtool_Providers
  * @author     Carlo Tasca <carlo.tasca.mail@gmail.com>
  */
-class MyMtool_Codegen_Entity_Suite_Block extends MyMtool_Codegen_Entity_Suite_Abstract
+class MyMtool_Providers_Suite_Model extends MyMtool_Providers_Suite_Entity
 {
     /**
-     * Entity folder name
-     * @var string
+     * Get provider name
+     * @return string
      */
-    protected $_folderName = 'Block';
+    public function getName()
+    {
+        return 'mage-suite-model';
+    }
 
     /**
-     * Create template name
-     * @var string
+     * Create model
+     *
+     * @param string $targetModule in format of companyname/suitename/modulename
+     * @param string $modelPath in format of modulename_suitename/model_path
      */
-    protected $_createTemplate = 'suite_block_blank';
-
-    /**
-     * Rewrite template name
-     * @var string
-     */
-    protected $_rewriteTemplate = 'suite_block_rewrite';
-
-    /**
-     * Entity name
-     * @var string
-     */
-    protected $_entityName = 'Block';
-
-    /**
-     * Namespace in config file
-     * @var string
-     */
-    protected $_configNamespace = 'blocks';
+    public function create($targetModule = null, $modelPath = null)
+    {
+        $this->_createEntity(new MyMtool_Codegen_Entity_Suite_Model(), 'model', $targetModule, $modelPath);
+    }
 }

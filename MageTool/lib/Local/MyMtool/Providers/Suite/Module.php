@@ -9,18 +9,18 @@
  * It is also available through the world-wide-web at this URL:
  * http://opensource.org/licenses/osl-3.0.php
  *
- * @category   Mtool
- * @package    Mtool_Providers
+ * @category   MyMtool
+ * @package    MyMtool_Providers
  * @copyright  Copyright (C) 2011 Oggetto Web ltd (http://oggettoweb.com/)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * Module provider
+ * Mage entity provider
  *
  * @category   MyMtool
  * @package    MyMtool_Providers
- * @author     Daniel Kocherga <dan@oggettoweb.com>
+ * @author     Carlo Tasca <carlo.tasca.mail@gmail.com>
  */
 class MyMtool_Providers_Suite_Module extends Mtool_Providers_Abstract
 {

@@ -10,7 +10,7 @@
  * http://opensource.org/licenses/osl-3.0.php
  *
  * @category   MyMtool
- * @package    MyMtool_Providers
+ * @package    MyMtool_Codegen
  * @copyright  Copyright (C) 2011 Oggetto Web ltd (http://oggettoweb.com/)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -19,38 +19,38 @@
  * Mage entity provider
  *
  * @category   MyMtool
- * @package    MyMtool_Providers
+ * @package    MyMtool_Codegen
  * @author     Carlo Tasca <carlo.tasca.mail@gmail.com>
  */
-class MyMtool_Codegen_Entity_Suite_Block extends MyMtool_Codegen_Entity_Suite_Abstract
+class MyMtool_Codegen_Entity_Suite_Model extends MyMtool_Codegen_Entity_Suite_Abstract
 {
     /**
      * Entity folder name
      * @var string
      */
-    protected $_folderName = 'Block';
+    protected $_folderName = 'Model';
 
     /**
      * Create template name
      * @var string
      */
-    protected $_createTemplate = 'suite_block_blank';
+    protected $_createTemplate = 'suite_model_blank';
 
     /**
      * Rewrite template name
      * @var string
      */
-    protected $_rewriteTemplate = 'suite_block_rewrite';
+    protected $_rewriteTemplate = 'suite_model_rewrite';
 
     /**
      * Entity name
      * @var string
      */
-    protected $_entityName = 'Block';
+    protected $_entityName = 'Model';
 
     /**
      * Namespace in config file
      * @var string
      */
-    protected $_configNamespace = 'blocks';
+    protected $_configNamespace = 'models';
 }

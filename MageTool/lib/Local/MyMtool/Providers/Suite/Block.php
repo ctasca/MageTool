@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * Mage Tool
  *
@@ -9,18 +9,18 @@
  * It is also available through the world-wide-web at this URL:
  * http://opensource.org/licenses/osl-3.0.php
  *
- * @category   Mtool
- * @package    Mtool_Providers
+ * @category   MyMtool
+ * @package    MyMtool_Providers
  * @copyright  Copyright (C) 2011 Oggetto Web ltd (http://oggettoweb.com/)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * Block provider
+ * Mage entity provider
  *
- * @category   Mtool
- * @package    Mtool_Providers
- * @author     Daniel Kocherga <dan@oggettoweb.com>
+ * @category   MyMtool
+ * @package    MyMtool_Providers
+ * @author     Carlo Tasca <carlo.tasca.mail@gmail.com>
  */
 class MyMtool_Providers_Suite_Block extends MyMtool_Providers_Suite_Entity
 {
@@ -42,26 +42,5 @@ class MyMtool_Providers_Suite_Block extends MyMtool_Providers_Suite_Entity
     public function create($targetModule = null,$blockPath = null)
     {
         $this->_createEntity(new MyMtool_Codegen_Entity_Suite_Block(), 'block', $targetModule, $blockPath);
-    }
-
-    /**
-     * Create new block with module auto-guessing
-     * @param string $blockPath in format of mymodule/block_path
-     */
-    public function add($blockPath = null)
-    {
-        $this->_createEntityWithAutoguess(new Mtool_Codegen_Entity_Block(), 'block', $blockPath);
-    }
-
-    /**
-     * Rewrite block
-     *
-     * @param string $targetModule in format of companyname/modulename
-     * @param string $originBlock in format of catalog/product
-     * @param string $yourBlock in format of catalog_product
-     */
-    public function rewrite($targetModule = null, $originBlock = null, $yourBlock = null)
-    {
-        $this->_rewriteEntity(new Mtool_Codegen_Entity_Block(), 'block', $targetModule, $originBlock, $yourBlock);
     }
 }
