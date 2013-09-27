@@ -35,6 +35,6 @@
                     <class>#{suite_admin_router}</class>
                 </suiteadmin>
             </routers>
-        </web
+        </web>
      </default>
 </config>
